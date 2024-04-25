@@ -4,23 +4,27 @@ import com.backend1.pensionat.dtos.RumDto;
 import com.backend1.pensionat.models.Rum;
 import com.backend1.pensionat.repos.RumRepo;
 import com.backend1.pensionat.services.RumService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+//@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/rum")
 public class RumController {
 
     private final RumRepo rumRepo;
     private final RumService rumService;
 
-    public RumController(RumRepo rumRepo, RumService rumService) {
+/*    public RumController(RumRepo rumRepo, RumService rumService) {
         this.rumRepo = rumRepo;
         this.rumService = rumService;
-    }
+    }*/
 
     @RequestMapping("/all")
     public String allRums(Model model) {

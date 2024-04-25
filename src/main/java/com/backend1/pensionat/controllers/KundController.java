@@ -3,25 +3,29 @@ package com.backend1.pensionat.controllers;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Controller
+//@Controller
+@RestController
+@RequiredArgsConstructor
 @RequestMapping("/kund")
 public class KundController {
 
     private final KundRepo kundRepo;
     private final BokningRepo bokningRepo;
 
-    public KundController(KundRepo kundRepo, BokningRepo bokningRepo) {
+ /*   public KundController(KundRepo kundRepo, BokningRepo bokningRepo) {
         this.kundRepo = kundRepo;
         this.bokningRepo = bokningRepo;
-    }
+    }*/
 
     @RequestMapping("/all")
     public String allKund(Model model) {

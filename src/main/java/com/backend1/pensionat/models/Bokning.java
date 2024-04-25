@@ -1,6 +1,8 @@
 package com.backend1.pensionat.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,8 @@ import java.time.LocalDate;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Bokning {
 
     @Id
@@ -22,11 +26,11 @@ public class Bokning {
     private double totalPris;
 
     @ManyToOne
-    @JoinColumn
+  //  @JoinColumn
     private Kund kund;
 
     @ManyToOne
-    @JoinColumn
+  //  @JoinColumn
     private Rum rum;
 
 }
