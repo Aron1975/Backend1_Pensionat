@@ -25,6 +25,6 @@ public class BokningController {
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "bokningar");
         model.addAttribute("titel", "Bokning");
-        return "/allaBokningar";
+        return "/allaBokningar";  //testing igen
     }
 }
