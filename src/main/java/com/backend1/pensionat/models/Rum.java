@@ -1,10 +1,11 @@
 package com.backend1.pensionat.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -17,14 +18,15 @@ public class Rum {
     private int nummer;
     private int storlek;
     private String typ;
-    private int kapacitet;
     private double pris;
 
-    public Rum(int nummer, int storlek, String typ, int kapacitet, double pris) {
+    public Rum(int nummer, int storlek, String typ, double pris) {
         this.nummer = nummer;
         this.storlek = storlek;
         this.typ = typ;
-        this.kapacitet = kapacitet;
         this.pris = pris;
     }
+
+    @OneToMany(mappedBy = "rum")
+    private List<Bokning> bokningList = new ArrayList<>();
 }
