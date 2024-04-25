@@ -1,7 +1,9 @@
 package com.backend1.pensionat.controllers;
 
+import com.backend1.pensionat.dtos.RumDto;
 import com.backend1.pensionat.models.Rum;
 import com.backend1.pensionat.repos.RumRepo;
+import com.backend1.pensionat.services.RumService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +15,16 @@ import java.util.List;
 public class RumController {
 
     private final RumRepo rumRepo;
+    private final RumService rumService;
 
-    public RumController(RumRepo rumRepo) {
+    public RumController(RumRepo rumRepo, RumService rumService) {
         this.rumRepo = rumRepo;
+        this.rumService = rumService;
     }
 
     @RequestMapping("/all")
     public String allRums(Model model) {
-        List<Rum> responseList = rumRepo.findAll();
+        List<RumDto> responseList = rumService.getAllRum();
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "rum");
         model.addAttribute("titel", "Rum");
@@ -29,6 +33,7 @@ public class RumController {
 
     @RequestMapping("/sök")
     public String findRum(Model model) {
+        // List<RumDto> availableRum = rumService.getAvailableRum();
 
         return "sökRum";
     }
