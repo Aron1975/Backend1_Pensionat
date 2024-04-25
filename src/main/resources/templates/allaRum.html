@@ -60,8 +60,28 @@
 </nav>
 
 <h1><p th:text="${titel}" /></h2></h1>
-<h2><p th:text="'Alla ' + ${kat}" /></h2>
+<h2><p th:text="'Allmän info om alla ' + ${kat}" /></h2>
 
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Typ</th>
+        <th scope="col">Storlek</th>
+        <th scope="col">Pris</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rum : ${responseList}">
+        <td th:text="${rum.rumTyp}"></td>
+        <td th:text="${rum.storlek} + ' kvm'"></td>
+        <td th:text="${rum.pris} + ' kr/natt'"></td>
+        <!-- <td><a th:href="@{#}" class="btn btn-primary btn-sm">Ändra</a> </td>-->
+        <!-- <td><a th:href="@{/kund/delete/{id}(id=${kund.id})}" class="btn btn-danger btn-sm">Ta bort</a> </td>-->
+     </tr>
+     </tbody>
+ </table>
 
-</body>
-</html>
+ </body>
+ </html>
