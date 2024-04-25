@@ -31,6 +31,20 @@ public class KundServiceImpl implements KundService {
     }
 
     @Override
+    public Kund detailedKundDtoToKund(DetailedKundDto dto) {
+        Kund kund = new Kund();
+        kund.setId(dto.getId());
+        kund.setSsn(dto.getSsn());
+        kund.setFörnamn(dto.getFörnamn());
+        kund.setEfternamn(dto.getEfternamn());
+        kund.setAdress(dto.getAdress());
+        kund.setStad(dto.getStad());
+        kund.setMobilnummer(dto.getMobilnummer());
+        kund.setEmail(dto.getEmail());
+        return kund;
+    }
+
+    @Override
     public KundDto kundToKundDto(Kund k) {
         return KundDto.builder().id(k.getId()).ssn(k.getSsn()).förnamn(k.getFörnamn()).efternamn(k.getEfternamn())
                 .build();

@@ -1,8 +1,11 @@
 package com.backend1.pensionat.controllers;
 
+import com.backend1.pensionat.dtos.DetailedKundDto;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
+import com.backend1.pensionat.services.KundService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,24 +15,21 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
+@RequiredArgsConstructor // la till denna istället för konstruktorn
 @RequestMapping("/kund")
 public class KundController {
 
     private final KundRepo kundRepo;
     private final BokningRepo bokningRepo;
+    private final KundService kundService;
 
-    public KundController(KundRepo kundRepo, BokningRepo bokningRepo) {
-        this.kundRepo = kundRepo;
-        this.bokningRepo = bokningRepo;
-    }
 
     @RequestMapping("/all")
-    public String allKund(Model model) {
-        List<Kund> responseList = kundRepo.findAll();
-        model.addAttribute("responseList", responseList);
+    public String getAllKunder(Model model) {
+        List<DetailedKundDto> kunder = kundService.getAllKunder();
+        model.addAttribute("kunder", kunder);
         model.addAttribute("kat", "kunder");
-        model.addAttribute("titel", "Kund");
-        return "/allaKunder";
+        return "allaKunder";
     }
 
     @RequestMapping("/delete/{id}")
