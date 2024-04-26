@@ -17,7 +17,6 @@ public class RumServiceImpl implements RumService {
 
     private final RumRepo rumRepo;
 
-
     @Override
     public List<RumDto> getAllRum() {
         return rumRepo.findAll().stream().map(r -> rumToRumDto(r)).toList();

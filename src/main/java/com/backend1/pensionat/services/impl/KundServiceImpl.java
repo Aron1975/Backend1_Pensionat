@@ -16,6 +16,7 @@ import java.util.List;
 public class KundServiceImpl implements KundService {
 
     private final KundRepo kundRepo;
+
     @Override
     public List<DetailedKundDto> getAllKunder() {
         return kundRepo.findAll().stream().map(k -> kundToDetailedKundDto(k)).toList();

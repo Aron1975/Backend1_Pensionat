@@ -1,8 +1,11 @@
 package com.backend1.pensionat.controllers;
 
+import com.backend1.pensionat.dtos.DetailedKundDto;
+import com.backend1.pensionat.dtos.KundDto;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
+import com.backend1.pensionat.services.KundService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +24,7 @@ public class KundController {
 
     private final KundRepo kundRepo;
     private final BokningRepo bokningRepo;
+    private final KundService kundService;
 
  /*   public KundController(KundRepo kundRepo, BokningRepo bokningRepo) {
         this.kundRepo = kundRepo;
@@ -29,7 +33,8 @@ public class KundController {
 
     @RequestMapping("/all")
     public String allKund(Model model) {
-        List<Kund> responseList = kundRepo.findAll();
+        //List<Kund> responseList = kundRepo.findAll();
+        List<DetailedKundDto> responseList = kundService.getAllKunder();
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "kunder");
         model.addAttribute("titel", "Kund");

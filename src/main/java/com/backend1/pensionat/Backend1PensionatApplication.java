@@ -16,8 +16,8 @@ public class Backend1PensionatApplication {
 		SpringApplication.run(Backend1PensionatApplication.class, args);
 	}
 
-	/*
 
+/*
 	@Bean
 	public CommandLineRunner commandLineRunner(KundRepo kundRepo, RumRepo rumRepo) {
 
@@ -54,7 +54,7 @@ public class Backend1PensionatApplication {
 			rumRepo.save(r10);
 
 		};
-	}
-	
-	 */
+	}*/
+
+
 }

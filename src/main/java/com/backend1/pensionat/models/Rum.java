@@ -20,12 +20,12 @@ public class Rum {
     @GeneratedValue
     private long id;
 
-    private String nummer;
+    private int nummer;
     private int storlek;
     private String typ;
     private double pris;
 
-    public Rum(String nummer, int storlek, String typ, double pris) {
+    public Rum(int nummer, int storlek, String typ, double pris) {
         this.nummer = nummer;
         this.storlek = storlek;
         this.typ = typ;
