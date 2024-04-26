@@ -14,6 +14,8 @@ public interface KundService {
 
     public DetailedKundDto kundToDetailedKundDto(Kund k);
 
+    public Kund detailedKundDtoToKund(DetailedKundDto k);
+
     public KundDto kundToKundDto(Kund k);
 
 
