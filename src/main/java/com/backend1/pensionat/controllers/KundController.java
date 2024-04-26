@@ -67,6 +67,13 @@ public class KundController {
 
     }
 
+    @GetMapping("/redigera/{id}")
+    public String visaForm(@PathVariable("id") Integer id, Model model) {
+        DetailedKundDto kund = kundServiceImp.getKund(id);
+        model.addAttribute("kund", kund);
+        return "addkund";
+    }
+
 
 
 

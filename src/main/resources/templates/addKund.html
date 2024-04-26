@@ -8,25 +8,25 @@
 <h2> Lägg till kund</h2>
 <form th:action="@{/kund/add}" method="post" th:object="${kund}">
     <input type="hidden" th:field="*{id}">
-    <div> <label>namn</label>
+    <div> <label>förnamn</label>
         <input type="text" th:field="*{förnamn}" required minlength="2"/>
+    </div>
+    <div> <label>efternamn</label>
+        <input type="text" th:field="*{efternamn}"/>
     </div>
     <div> <label>personnummer</label>
         <input type="text" th:field="*{ssn}"/>
     </div>
     <div> <label>email</label>
-        <input type="text" th:field="*{efternamn}"/>
-    </div>
-    <div> <label>email</label>
         <input type="text" th:field="*{email}"/>
     </div>
-    <div> <label>email</label>
-        <input type="text" th:field="*{stad}"/>
-    </div>
-    <div> <label>telefon</label>
+    <div> <label>mobilnummer</label>
         <input type="text" th:field="*{mobilnummer}"/>
     </div>
-    <div> <label>address</label>
+    <div> <label>stad</label>
+        <input type="text" th:field="*{stad}"/>
+    </div>
+    <div> <label>adress</label>
         <input type="text" th:field="*{adress}"/>
     </div>
     <div>

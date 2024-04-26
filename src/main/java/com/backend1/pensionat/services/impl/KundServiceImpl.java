@@ -2,7 +2,6 @@ package com.backend1.pensionat.services.impl;
 
 import com.backend1.pensionat.dtos.DetailedKundDto;
 import com.backend1.pensionat.dtos.KundDto;
-import com.backend1.pensionat.dtos.RumDto;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
@@ -10,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +48,14 @@ public class KundServiceImpl implements KundService {
         Kund kund = detailedKundDtoToKund(k);
         kundRepo.save(kund);
 
+    }
+
+    public DetailedKundDto getKund(Integer id) {
+        Kund kund = kundRepo.findById(Long.valueOf(id)).orElse(null);
+        if (kund != null) {
+            return kundToDetailedKundDto(kund);
+        }
+        return null;
     }
 
 

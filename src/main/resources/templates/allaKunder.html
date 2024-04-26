@@ -78,7 +78,7 @@
         <td th:text="${kund.adress} + '-' + ${kund.stad}"></td>
         <td th:text="${kund.mobilnummer}"></td>
         <td th:text="${kund.email}"></td>
-        <td><a th:href="@{#}" class="btn btn-primary btn-sm">Ändra</a> </td>
+        <td><a th:href="@{/kund/redigera/{id}(id=${kund.id})}" class="btn btn-primary btn-sm">Ändra</a> </td>
         <td><a th:href="@{/kund/delete/{id}(id=${kund.id})}" class="btn btn-danger btn-sm">Ta bort</a> </td>
     </tr>
     </tbody>
