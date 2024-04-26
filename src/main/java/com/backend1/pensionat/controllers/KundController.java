@@ -53,7 +53,6 @@ public class KundController {
     @PostMapping("/add")
         public String sparaKund(DetailedKundDto kund) {
         kundServiceImp.spara(kund);
-              //  return "redirect:/kund/all";
         return "redirect:/kund/all";
 
 
@@ -61,21 +60,20 @@ public class KundController {
 
     @GetMapping("/ny")
     public String nyKund(Model model) {
+        model.addAttribute("kat", "Ny kund");
+        model.addAttribute("titel", "Kund");
         model.addAttribute("kund", new DetailedKundDto());
         return "addKund";
-
-
     }
 
     @GetMapping("/redigera/{id}")
     public String visaForm(@PathVariable("id") Integer id, Model model) {
         DetailedKundDto kund = kundServiceImp.getKund(id);
+        model.addAttribute("kat", "Ändra kunduppgifter");
+        model.addAttribute("titel", "Kund");
         model.addAttribute("kund", kund);
         return "addkund";
     }
-
-
-
 
     public boolean checkIfKundHasBokning(long kundId){
         return bokningRepo.getKundIdList().stream().anyMatch(kund -> kund.getId() == kundId);

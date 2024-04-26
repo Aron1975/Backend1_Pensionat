@@ -60,17 +60,41 @@
     </div>
 </nav>
 <h1>Välkommen till Pensionatet!</h1><br>
+<h2>Sök lediga rum:</h2><br>
 
 <div id="maincontainer">
     <form action="/rum/sök" method="post">
-        <p>Sök lediga rum:</p>
-        <label for="guests">Antal gäster:</label>
-        <input type="text" id="guests" name="guests" value=""><br>
-        <label for="startDate">Start datum:</label>
-        <input type="text" id="startDate" name="startDate" value=""><br>
-        <label for="stopDate">Slut datum:</label>
-        <input type="text" id="stopDate" name="stopDate" value="">
-        <input type="submit" class="btn btn-md btn-success" value="Submit">
+        <div class="row m-4">
+            <div class="col">
+                <label for="guests">Antal gäster:</label>
+            </div>
+            <div class="col">
+                <input type="text" id="guests" name="guests" value="">
+            </div>
+        </div>
+        <div class="row m-4">
+            <div class="col">
+                <label for="startDate">Incheckningsdatum:</label>
+            </div>
+            <div class="col">
+                <input type="text" id="startDate" name="startDate" value="">
+            </div>
+        </div>
+        <div class="row m-4">
+            <div class="col">
+                <label for="stopDate">Utcheckningsdatum:</label>
+            </div>
+            <div class="col">
+                <input type="text" id="stopDate" name="stopDate" value="">
+            </div>
+        </div>
+        <div class="row m-4">
+            <div class="col">
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-md btn-success" value="Submit">
+            </div>
+        </div>
     </form>
 </div>
 </body>
