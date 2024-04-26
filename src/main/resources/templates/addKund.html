@@ -2,9 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Lägg till Kund</title>
+    <title>Lägg till kund</title>
 </head>
 <body>
-<h1>Lägg till Kund</h1>
+<h2> Lägg till kund</h2>
+<form th:action="@{/kund/add}" method="post" th:object="${kund}">
+    <input type="hidden" th:field="*{id}">
+    <div> <label>namn</label>
+        <input type="text" th:field="*{förnamn}" required minlength="2"/>
+    </div>
+    <div> <label>personnummer</label>
+        <input type="text" th:field="*{ssn}"/>
+    </div>
+    <div> <label>email</label>
+        <input type="text" th:field="*{efternamn}"/>
+    </div>
+    <div> <label>email</label>
+        <input type="text" th:field="*{email}"/>
+    </div>
+    <div> <label>email</label>
+        <input type="text" th:field="*{stad}"/>
+    </div>
+    <div> <label>telefon</label>
+        <input type="text" th:field="*{mobilnummer}"/>
+    </div>
+    <div> <label>address</label>
+        <input type="text" th:field="*{adress}"/>
+    </div>
+    <div>
+        <button type="submit">Spara</button>
+        <button type="button" onclick="window.location.href='/kund/all'" >Avbryt</button>
+    </div>
+
+</form>
 </body>
 </html>

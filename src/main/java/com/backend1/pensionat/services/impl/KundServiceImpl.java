@@ -44,6 +44,13 @@ public class KundServiceImpl implements KundService {
         return kund;
     }
 
+    public void spara(DetailedKundDto k){
+        Kund kund = detailedKundDtoToKund(k);
+        kundRepo.save(kund);
+
+    }
+
+
     @Override
     public KundDto kundToKundDto(Kund k) {
         return KundDto.builder().id(k.getId()).ssn(k.getSsn()).förnamn(k.getFörnamn()).efternamn(k.getEfternamn())

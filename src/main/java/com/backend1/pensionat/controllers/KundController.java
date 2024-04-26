@@ -5,12 +5,12 @@ import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
+import com.backend1.pensionat.services.impl.KundServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,14 +22,17 @@ public class KundController {
     private final KundRepo kundRepo;
     private final BokningRepo bokningRepo;
     private final KundService kundService;
+    @Autowired
+    private final KundServiceImpl kundServiceImp;
 
 
     @RequestMapping("/all")
     public String getAllKunder(Model model) {
-        List<DetailedKundDto> kunder = kundService.getAllKunder();
-        model.addAttribute("kunder", kunder);
+        List<DetailedKundDto> responseList = kundService.getAllKunder();
+        model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "kunder");
-        return "allaKunder";
+        model.addAttribute("titel", "Kund");
+        return "/allaKunder";
     }
 
     @RequestMapping("/delete/{id}")
@@ -40,12 +43,32 @@ public class KundController {
         }
         return "redirect:/kund/all";
     }
-
+/*
     @RequestMapping("/add")
     public String addKund(Model model) {
         //kundRepo.deleteById(id);
         return "addKund";
     }
+*/
+    @PostMapping("/add")
+        public String sparaKund(DetailedKundDto kund) {
+        kundServiceImp.spara(kund);
+              //  return "redirect:/kund/all";
+        return "redirect:/kund/all";
+
+
+    }
+
+    @GetMapping("/ny")
+    public String nyKund(Model model) {
+        model.addAttribute("kund", new DetailedKundDto());
+        return "addKund";
+
+
+    }
+
+
+
 
     public boolean checkIfKundHasBokning(long kundId){
         return bokningRepo.getKundIdList().stream().anyMatch(kund -> kund.getId() == kundId);
