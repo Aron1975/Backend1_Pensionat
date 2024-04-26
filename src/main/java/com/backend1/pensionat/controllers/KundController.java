@@ -47,7 +47,7 @@ public class KundController {
     @RequestMapping("/add")
     public String addKund(Model model) {
         //kundRepo.deleteById(id);
-        return "addKund";
+        return "addKund"; //note
     }
 */
     @PostMapping("/add")
