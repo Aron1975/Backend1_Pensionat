@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,6 +33,25 @@ public class BokningServiceImpl implements BokningService {
                 .slutDatum(b.getSlutDatum()).antalGäster(b.getAntalGäster()).antalExtraSängar(b.getAntalExtraSängar())
                 .totalPris(b.getTotalPris()).kund(new KundDto(b.getKund().getId(), b.getKund().getSsn(), b.getKund().getFörnamn(), b.getKund().getEfternamn()))
                 .rum(new RumDto(b.getRum().getId(), b.getRum().getTyp(),b.getRum().getPris(), b.getRum().getStorlek(), b.getRum().getKapacitet(), b.getRum().getNummer())).build();
+
+    }
+
+    @Override
+    public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity) {
+        List<RumDto> availableRumByDate = new ArrayList<>();
+        if (getAllBokningar().isEmpty()) {
+            availableRumByDate = availableRumByCapacity;
+        }
+        else{
+            // Implement logic for filtering available dates.
+        }
+        return availableRumByDate;
+    }
+
+    @Override
+    public void sparaBokning(DetailedBokningDto b){
+        //Bokning bokning = detailedBokningDtoToBokning(b);
+       // bokningRepo.save(bokning);
 
     }
 }

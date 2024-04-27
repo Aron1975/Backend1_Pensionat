@@ -54,8 +54,6 @@ public class KundController {
         public String sparaKund(DetailedKundDto kund) {
         kundServiceImp.spara(kund);
         return "redirect:/kund/all";
-
-
     }
 
     @GetMapping("/ny")
@@ -72,7 +70,7 @@ public class KundController {
         model.addAttribute("kat", "Ändra kunduppgifter");
         model.addAttribute("titel", "Kund");
         model.addAttribute("kund", kund);
-        return "addkund";
+        return "addKund";
     }
 
     public boolean checkIfKundHasBokning(long kundId){
