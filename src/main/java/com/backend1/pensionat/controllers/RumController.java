@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @Controller
-//@RestController
 @RequiredArgsConstructor
 @RequestMapping("/rum")
 public class RumController {
@@ -22,10 +21,6 @@ public class RumController {
     private final RumRepo rumRepo;
     private final RumService rumService;
 
-/*    public RumController(RumRepo rumRepo, RumService rumService) {
-        this.rumRepo = rumRepo;
-        this.rumService = rumService;
-    }*/
 
     @RequestMapping("/all")
     public String allRums(Model model) {
@@ -38,7 +33,8 @@ public class RumController {
 
     @RequestMapping("/sök")
     public String findRum(@RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
-        // List<RumDto> availableRum = rumService.getAvailableRum();
+        List<RumDto> availableRumList = rumService.getAvailableRum(guests);
+        model.addAttribute("availableRumList", availableRumList);
         model.addAttribute("startDatum", startDate);
         model.addAttribute("stopDatum", stopDate);
         model.addAttribute("antal", guests);

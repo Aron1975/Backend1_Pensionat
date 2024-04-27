@@ -15,6 +15,6 @@ public class RumDto {
     private String rumTyp;
     private double pris;
     private int storlek;
-    //private String nummer;
+    private int kapacitet;
     private int nummer;
 }

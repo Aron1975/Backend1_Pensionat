@@ -23,12 +23,14 @@ public class Rum {
     private int nummer;
     private int storlek;
     private String typ;
+    private int kapacitet;
     private double pris;
 
-    public Rum(int nummer, int storlek, String typ, double pris) {
+    public Rum(int nummer, int storlek, String typ, int kapacitet, double pris) {
         this.nummer = nummer;
         this.storlek = storlek;
         this.typ = typ;
+        this.kapacitet = kapacitet;
         this.pris = pris;
     }
 
