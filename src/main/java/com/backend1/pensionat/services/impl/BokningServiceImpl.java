@@ -37,13 +37,28 @@ public class BokningServiceImpl implements BokningService {
     }
 
     @Override
-    public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity) {
+    public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate) {
         List<RumDto> availableRumByDate = new ArrayList<>();
+        List<DetailedBokningDto> allaBokningar = getAllBokningar();
+        //List<Long> bookedRumIds = allaBokningar.stream().map(i -> i.getRum().getId()).toList();
+        boolean isBooked = false;
         if (getAllBokningar().isEmpty()) {
             availableRumByDate = availableRumByCapacity;
         }
-        else{
-            availableRumByDate = availableRumByCapacity; // Implement logic for filtering available dates.
+        else {
+            for (RumDto r : availableRumByCapacity) {
+                for (DetailedBokningDto b : allaBokningar) {
+                    if (r.getId() == b.getRum().getId()) {
+                        if ((startDate.isBefore(b.getSlutDatum()) && stopDate.isAfter(b.getStartDatum()))) {
+                            isBooked = true;
+                        }
+                    }
+                }
+                if (!isBooked) {
+                    availableRumByDate.add(r);
+                }
+                isBooked = false;
+            }
         }
         return availableRumByDate;
     }

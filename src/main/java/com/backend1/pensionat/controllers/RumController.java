@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,7 +42,9 @@ public class RumController {
     public String findRum(@RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
         List<RumDto> availableRumList = new ArrayList<>();
         List<RumDto> availableRumByCapacity = rumService.getAvailableRum(guests);
-        availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity);
+        LocalDate startDatum = LocalDate.parse(startDate);
+        LocalDate stopDatum = LocalDate.parse(stopDate);
+        availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
        /* List<Object> bokningsdetaljer = new ArrayList<>();
         bokningsdetaljer.add(guests);
         bokningsdetaljer.add(startDate);
