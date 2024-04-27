@@ -43,7 +43,7 @@ public class BokningServiceImpl implements BokningService {
             availableRumByDate = availableRumByCapacity;
         }
         else{
-            // Implement logic for filtering available dates.
+            availableRumByDate = availableRumByCapacity; // Implement logic for filtering available dates.
         }
         return availableRumByDate;
     }

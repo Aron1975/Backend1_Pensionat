@@ -68,6 +68,7 @@
         <th scope="col">Rum</th>
         <th scope="col">Incheckning</th>
         <th scope="col">Utcheckning</th>
+        <th scope="col">Total pris</th>
         <th scope="col"></th>
         <th scope="col"></th>
     </tr>
@@ -78,6 +79,7 @@
         <td th:text="${bokning.rum.nummer}"></td>
         <td th:text="${bokning.startDatum}"></td>
         <td th:text="${bokning.slutDatum}"></td>
+        <td th:text="${bokning.totalPris}"></td>
         <td><a th:href="@{/bokning/redigera/{id}(id=${bokning.id})}" class="btn btn-primary btn-sm">Ändra</a> </td>
         <td><a th:href="@{/bokning/delete/{id}(id=${bokning.id})}" class="btn btn-danger btn-sm">Ta bort</a> </td>
     </tr>

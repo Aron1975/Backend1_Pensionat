@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -49,15 +51,17 @@ public class BokningController {
         return "redirect:/bokning/all";  //testing igen
     }*/
 
-    @RequestMapping("/add/{id}")
-    public String sparaBokning(@PathVariable Long id, @RequestParam String startDatum, @RequestParam String stopDatum, @RequestParam int antal, Model model) {
+    @RequestMapping("/{id}/add")
+    public String sparaBokning(@PathVariable String id, @RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum) {
 
-        Rum rum = rumRepo.findById(id).get();
-        Kund kund = kundRepo.findById(id).get();
-        int antalDagar = 4;
+        Long rumId = Long.parseLong(id);
+        Rum rum = rumRepo.findById(rumId).get();
+        Kund kund = kundRepo.findById(3L).get(); //Tar bara en existerande kund
+
         LocalDate inch = LocalDate.parse(startDatum);
         LocalDate utch = LocalDate.parse(stopDatum);
-        bokningRepo.save(Bokning.builder().bokningsDatum(LocalDate.now()).startDatum(inch).startDatum(utch).antalGäster(antal).antalExtraSängar(antal-2).totalPris(rum.getPris()*antalDagar).kund(kund).rum(rum).build());
+        long antalDagar = DAYS.between(inch, utch);
+        bokningRepo.save(Bokning.builder().bokningsDatum(LocalDate.now()).startDatum(inch).slutDatum(utch).antalGäster(antal).antalExtraSängar(antal-2).totalPris(rum.getPris()*antalDagar).kund(kund).rum(rum).build());
 
         //bokningService.spara(bokning);
         return "redirect:/bokning/all";
