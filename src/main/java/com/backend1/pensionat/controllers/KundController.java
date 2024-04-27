@@ -35,6 +35,7 @@ public class KundController {
         return "/allaKunder";
     }
 
+    //zlvndbn
     @RequestMapping("/delete/{id}")
     public String deleteKundById(@PathVariable long id, Model model) {
         Kund kundToDelete = kundRepo.findById(id).get();
