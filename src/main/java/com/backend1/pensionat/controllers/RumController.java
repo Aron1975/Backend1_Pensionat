@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -36,9 +37,11 @@ public class RumController {
     }
 
     @RequestMapping("/sök")
-    public String findRum(Model model) {
+    public String findRum(@RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
         // List<RumDto> availableRum = rumService.getAvailableRum();
-
-        return "sökRum";
+        model.addAttribute("startDatum", startDate);
+        model.addAttribute("stopDatum", stopDate);
+        model.addAttribute("antal", guests);
+        return "allaLedigaRum";
     }
 }

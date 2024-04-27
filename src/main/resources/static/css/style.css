@@ -28,5 +28,8 @@ button{
     font-size: 20px;
     text-align: start;
     align-content: center;
+}
 
+.input-group-append {
+    cursor: pointer;
 }
