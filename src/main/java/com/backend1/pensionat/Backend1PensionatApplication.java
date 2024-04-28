@@ -17,7 +17,7 @@ public class Backend1PensionatApplication {
 	}
 
 
-/*
+   /*
 	@Bean
 	public CommandLineRunner commandLineRunner(KundRepo kundRepo, RumRepo rumRepo) {
 
