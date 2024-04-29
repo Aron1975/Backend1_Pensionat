@@ -23,7 +23,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Sök</a>
+        <a class="navbar-brand" href="/">Sök</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -71,7 +71,7 @@
 <h2>Sök lediga rum:</h2><br>
 
 <div id="maincontainer">
-    <form th:action="@{/rum/sök}" method="post">
+    <form th:action="@{/rum/sök}" method="post" id="searhForm">
         <div class="row m-4">
             <div class="col">
                 <label for="guests">Antal gäster:</label>
@@ -112,7 +112,7 @@
             </div>
             <div class="col">
                 <div id="stopdatepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-                    <input class="form-control" type="text" id="stopDate" name="stopDate" readonly />
+                    <input class="form-control" type="text" id="stopDate" name="stopDate"  readonly />
                     <span class="input-group-addon">
                         <!--i class="glyphicon glyphicon-calendar"></i-->
                     </span>
@@ -124,6 +124,9 @@
             </div>
             <div class="col">
                 <input type="submit" class="btn btn-md btn-success" value="Submit">
+            </div>
+            <div>
+                <p id="error" th:text="${errorMessage}" />
             </div>
         </div>
     </form>
