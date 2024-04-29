@@ -69,56 +69,63 @@
                 <div class="col">
                     <label>Förnamn</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{förnamn}" required minlength="2"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type="text" th:field="*{förnamn}" th:classappend="${#fields.hasErrors('förnamn')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('förnamn')}" th:errors="*{förnamn}"></div>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col">
                     <label>Efternamn</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{efternamn}"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type="text" th:field="*{efternamn}" th:classappend="${#fields.hasErrors('efternamn')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('efternamn')}" th:errors="*{efternamn}"></div>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col">
                     <label>Personnummer</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{ssn}"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type="text" th:field="*{ssn}" th:classappend="${#fields.hasErrors('ssn')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('ssn')}" th:errors="*{ssn}"></div>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col">
                     <label>E-mail</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{email}"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type of="text" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col">
                     <label>Mobilnummer</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{mobilnummer}"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type="text" th:field="*{mobilnummer}" th:classappend="${#fields.hasErrors('mobilnummer')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('mobilnummer')}" th:errors="*{mobilnummer}"></div>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col">
                     <label>Stad</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{stad}"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type="text" th:field="*{stad}" th:classappend="${#fields.hasErrors('stad')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('stad')}" th:errors="*{stad}"></div>
                 </div>
             </div>
             <div class="row m-4">
                 <div class="col">
                     <label>Adress</label>
                 </div>
-                <div class="col">
-                    <input type="text" th:field="*{adress}"/>
+                <div class="col d-flex align-items-center validation-parent">
+                    <input type="text" th:field="*{adress}" th:classappend="${#fields.hasErrors('adress')} ? 'is-invalid' : ''">
+                    <div class="invalid-feedback" th:if="${#fields.hasErrors('adress')}" th:errors="*{adress}"></div>
                 </div>
             </div>
             <div class="row m-4">
