@@ -2,7 +2,9 @@ package com.backend1.pensionat.services.impl;
 
 import com.backend1.pensionat.dtos.DetailedKundDto;
 import com.backend1.pensionat.dtos.KundDto;
+import com.backend1.pensionat.models.Bokning;
 import com.backend1.pensionat.models.Kund;
+import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class KundServiceImpl implements KundService {
 
     private final KundRepo kundRepo;
+    private final BokningRepo bokningsRepo;
 
     @Override
     public List<DetailedKundDto> getAllKunder() {
@@ -28,7 +31,6 @@ public class KundServiceImpl implements KundService {
         return DetailedKundDto.builder().id(k.getId()).ssn(k.getSsn()).förnamn(k.getFörnamn())
                 .efternamn(k.getEfternamn()).mobilnummer(k.getMobilnummer()).email(k.getEmail())
                 .adress(k.getAdress()).stad(k.getStad()).build();
-
     }
 
     @Override
@@ -48,7 +50,14 @@ public class KundServiceImpl implements KundService {
     public void spara(DetailedKundDto k){
         Kund kund = detailedKundDtoToKund(k);
         kundRepo.save(kund);
+    }
 
+    @Override
+    public void deleteKundById(long id) {
+        Kund kundToDelete = kundRepo.findById(id).orElse(null);
+        if (kundToDelete != null && !checkIfKundHasBokning(id)) {
+            kundRepo.deleteById(id);
+        }
     }
 
     public DetailedKundDto getKund(Integer id) {
@@ -65,4 +74,10 @@ public class KundServiceImpl implements KundService {
         return KundDto.builder().id(k.getId()).ssn(k.getSsn()).förnamn(k.getFörnamn()).efternamn(k.getEfternamn())
                 .build();
     }
+
+
+    public boolean checkIfKundHasBokning(long kundId){
+        return bokningsRepo.getKundIdList().stream().anyMatch(kund -> kund.getId() == kundId);
+    }
+
 }

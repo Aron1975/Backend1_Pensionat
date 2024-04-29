@@ -6,6 +6,7 @@ import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
 import com.backend1.pensionat.services.impl.KundServiceImpl;
+import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +23,6 @@ public class KundController {
     private final KundRepo kundRepo;
     private final BokningRepo bokningRepo;
     private final KundService kundService;
-    @Autowired
-    private final KundServiceImpl kundServiceImp;
-
 
     @RequestMapping("/all")
     public String getAllKunder(Model model) {
@@ -35,13 +33,9 @@ public class KundController {
         return "/allaKunder";
     }
 
-    //zlvndbn
     @RequestMapping("/delete/{id}")
     public String deleteKundById(@PathVariable long id, Model model) {
-        Kund kundToDelete = kundRepo.findById(id).get();
-        if(!checkIfKundHasBokning(id)) {
-            kundRepo.deleteById(id);
-        }
+        kundService.deleteKundById(id);
         return "redirect:/kund/all";
     }
 /*
@@ -53,7 +47,7 @@ public class KundController {
 */
     @PostMapping("/add")
         public String sparaKund(DetailedKundDto kund) {
-        kundServiceImp.spara(kund);
+        kundService.spara(kund);
         return "redirect:/kund/all";
     }
 
@@ -67,14 +61,10 @@ public class KundController {
 
     @GetMapping("/redigera/{id}")
     public String visaForm(@PathVariable("id") Integer id, Model model) {
-        DetailedKundDto kund = kundServiceImp.getKund(id);
+        DetailedKundDto kund = kundService.getKund(id);
         model.addAttribute("kat", "Ändra kunduppgifter");
         model.addAttribute("titel", "Kund");
         model.addAttribute("kund", kund);
         return "addKund";
-    }
-
-    public boolean checkIfKundHasBokning(long kundId){
-        return bokningRepo.getKundIdList().stream().anyMatch(kund -> kund.getId() == kundId);
     }
 }
