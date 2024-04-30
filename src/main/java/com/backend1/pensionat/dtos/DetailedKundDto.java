@@ -17,32 +17,32 @@ public class DetailedKundDto {
 
     private long id;
 
-    @NotBlank(message = "SSN number cannot be empty")
-    @Pattern(regexp="(^$|[0-9]{10,12})", message= "SSN number must be between 10 and 12 digits")
+    @NotBlank(message = "Ange ditt personnummer")
+    @Pattern(regexp="(^$|[0-9]{10,12})", message= "Personnumret måste vara mellan 10 och 12 siffror")
     private String ssn;
 
-    @NotBlank(message = "First name cannot be empty")
-    @Pattern(regexp = "(^$|^[A-Za-zåäöÅÄÖ]+$)", message = "First name must only contain letters")
-    @Size(max = 50, message = "First name must be a maximum of 50 characters")
+    @NotBlank(message = "Ange ditt förnamn")
+    @Pattern(regexp = "(^$|^[A-Za-zåäöÅÄÖ]+$)", message = "Förnamnet får endast innehålla bokstäver")
+    @Size(max = 50, message = "Förnamnet får ha maximalt 50 tecken")
     private String förnamn;
 
-    @NotBlank(message = "Last name cannot be empty")
-    @Pattern(regexp = "(^$|^[A-Za-zåäöÅÄÖ]+$)", message = "Last name must only contain letters")
-    @Size(max = 50, message = "Last name must be a maximum of 50 characters")
+    @NotBlank(message = "Ange ditt efternamn")
+    @Pattern(regexp = "(^$|^[A-Za-zåäöÅÄÖ]+$)", message = "Efternamnet får endast innehålla bokstäver")
+    @Size(max = 50, message = "Efternamnet får ha maximalt 50 tecken")
     private String efternamn;
 
-    @NotBlank(message = "Address cannot be empty")
+    @NotBlank(message = "Ange din adress")
     private String adress;
 
-    @NotBlank(message = "City cannot be empty")
+    @NotBlank(message = "Ange din stad")
     private String stad;
 
-    @NotBlank(message = "Mobile number cannot be empty")
-    @Pattern(regexp="(^$|[0-9]{10,12})", message= "Mobile number must be between 10 and 12 digits")
+    @NotBlank(message = "Ange ditt mobilnummer")
+    @Pattern(regexp="(^$|[0-9]{10,12})", message= "Mobilnumret måste vara mellan 10 och 12 siffror")
     private String mobilnummer;
 
-    @NotBlank(message = "Email cannot be empty")
-    @Email(message = "Email should be valid")
+    @NotBlank(message = "Ange din e-postadress")
+    @Email(message = "E-postadressen ska vara giltig")
     private String email;
 
 
