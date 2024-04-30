@@ -1,5 +1,6 @@
 package com.backend1.pensionat.dtos;
 
+import com.backend1.pensionat.models.Kund;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class DetailedKundDto {
     private String stad;
     private String mobilnummer;
     private String email;
+
 
 
 }
