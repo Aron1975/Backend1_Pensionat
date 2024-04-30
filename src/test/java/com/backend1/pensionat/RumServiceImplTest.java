@@ -32,7 +32,7 @@ public Rum(int nummer, int storlek, String typ, int kapacitet, double pris) {
     }
  */
 
-    /*
+    /* test av följande
 
     public RumDto rumToRumDto(Rum r) {
         return RumDto.builder().id(r.getId()).nummer(r.getNummer()).rumTyp(r.getTyp()).storlek(r.getStorlek()).kapacitet(r.getKapacitet()).pris(r.getPris()).build();

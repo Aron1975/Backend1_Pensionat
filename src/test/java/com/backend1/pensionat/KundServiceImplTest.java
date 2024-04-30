@@ -10,7 +10,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 public class KundServiceImplTest {
@@ -19,11 +25,12 @@ public class KundServiceImplTest {
     @Mock
     private KundRepo kundRepo;
 
-    private final KundServiceImpl kundService = new KundServiceImpl(kundRepo);
+
+    private KundServiceImpl kundService = new KundServiceImpl(kundRepo);
 
 
 
-    /*
+    /* test av följande
     public DetailedKundDto kundToDetailedKundDto(Kund k) {
         return DetailedKundDto.builder().id(k.getId()).ssn(k.getSsn()).förnamn(k.getFörnamn())
                 .efternamn(k.getEfternamn()).mobilnummer(k.getMobilnummer()).email(k.getEmail())
@@ -50,7 +57,7 @@ public class KundServiceImplTest {
         assertEquals(kund.getStad(), detailedKundDto.getStad());
     }
 
-/*
+/* test av följade
 public Kund detailedKundDtoToKund(DetailedKundDto dto) {
         Kund kund = new Kund();
         kund.setId(dto.getId());
@@ -86,6 +93,66 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
 
    }
 
+
+   /* test av följande
+   public List<DetailedKundDto> getAllKunder() {
+        return kundRepo.findAll().stream().map(k -> kundToDetailedKundDto(k)).toList();
+    }
+
+    */
+
+
+    @Test
+    void testgetAllKunder() {
+
+        Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
+                "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+        kund.setId(1L);
+
+        when(kundRepo.findAll()).thenReturn(Arrays.asList(kund));
+        kundService = new KundServiceImpl(kundRepo);
+        List<DetailedKundDto> allakunder = kundService.getAllKunder();
+
+        assertTrue(allakunder.size() == 1);     //blir fel om man tar 2
+
+
+
+    }
+
+
+
+
+/* svår metod att testa? returnar void o sparar i databas
+ public void spara(DetailedKundDto k){
+        Kund kund = detailedKundDtoToKund(k);
+        kundRepo.save(kund);
+
+    }
+ */
+
+
+
+
+    /*
+
+
+
+    @Test
+    void testSpara() {
+
+        DetailedKundDto detailedKundDto = new DetailedKundDto();
+        detailedKundDto.setSsn("123456789");
+
+        Kund kund = new Kund();
+
+        when(kundService.detailedKundDtoToKund(detailedKundDto)).thenReturn(kund);
+        kundService.spara(detailedKundDto);
+
+        verify(kundRepo).save(kund);
+    }
+
+
+*/
 
 
 

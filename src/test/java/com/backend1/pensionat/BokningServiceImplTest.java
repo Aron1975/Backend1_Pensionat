@@ -45,7 +45,7 @@ private long id;
 
 
 
-    /*
+    /* test av följande
 
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b) {
         return DetailedBokningDto.builder().id(b.getId()).bokningsDatum(b.getBokningsDatum()).startDatum(b.getStartDatum())
