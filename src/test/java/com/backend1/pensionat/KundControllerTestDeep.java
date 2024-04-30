@@ -24,12 +24,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
-import static org.springframework.mock.http.server.reactive.MockServerHttpRequest.post;
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import javax.swing.text.html.Option;
 
 import java.util.ArrayList;
@@ -59,12 +61,15 @@ public class KundControllerTestDeep {
     private KundRepo mockKundRepo;
 
    // @MockBean
-    //private DetailedKundDto mockKund;
+   // private DetailedKundDto mockKund;
 
-    @MockBean
-    private KundController kController;
+   //@MockBean
+   //private KundController kController;
 
     List<DetailedKundDto> expectedResponseList = new ArrayList<>();
+
+   // @MockBean
+   // DetailedKundDto mockKund = new DetailedKundDto();
 
     /*
     private long id;
@@ -108,6 +113,16 @@ public class KundControllerTestDeep {
                 "hotmail@hotmail.com", "076222233", "Levi", "Maja", "54321");
         k1.setId(1L);
         k2.setId(2L);
+
+
+       /* mockKund.setId(1L);
+        mockKund.setSsn("123");
+        mockKund.setFörnamn("hej");
+        mockKund.setEfternamn("där");
+        mockKund.setEmail("email@email.com");
+        mockKund.setAdress("stad 34");
+        mockKund.setMobilnummer("321");
+        mockKund.setStad("huddinge"); */
 
         //expectedResponseList = Arrays.asList(new DetailedKundDto(k1), new DetailedKundDto(k2));
 
@@ -153,6 +168,7 @@ public class KundControllerTestDeep {
     @Test
     public void testSparaKund() throws Exception {
         // Create a mock DetailedKundDto object
+
         DetailedKundDto mockKund = new DetailedKundDto();
         mockKund.setId(1L);
         mockKund.setSsn("123");
@@ -163,13 +179,16 @@ public class KundControllerTestDeep {
         mockKund.setMobilnummer("321");
         mockKund.setStad("huddinge");
 
+
+
         // Convert the mockKund object to JSON string
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonContent = objectMapper.writeValueAsString(mockKund);
 
         // Perform a POST request to the /add endpoint with the JSON content
-        MvcResult result = mvc.perform((RequestBuilder) post("/add")
-                        .contentType(MediaType.APPLICATION_JSON))
+        MvcResult result = mvc.perform(post("/kund/add")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(jsonContent.getBytes()))
                 .andExpect(status().is3xxRedirection()) // Expect a redirection
                 .andReturn();
 
@@ -178,8 +197,10 @@ public class KundControllerTestDeep {
         assertEquals("/kund/all", redirectUrl);
 
         // Verify that the spara method of mockKundService was called with the mockKund object
-        verify(mockKundService).spara(any(DetailedKundDto.class));
+        verify(mockKundService).spara(mockKund);
     }
+
+
 
 
 }
