@@ -102,9 +102,9 @@ public class KundControllerTestDeep {
     void getAllKunder() throws Exception {
 
 
-        this.mvc.perform(get("/all"))
-                .andExpect(status().isNotFound());                      //Fungerar
-            //    .andExpect(view().name("/allaKunder"));
+        this.mvc.perform(get("/kund/all"))
+                .andExpect(status().isOk())                      //Fungerar
+                .andExpect(view().name("/allaKunder"));
     }
 
 
