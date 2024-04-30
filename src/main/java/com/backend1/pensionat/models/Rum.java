@@ -35,7 +35,7 @@ public class Rum {
     @Min(value = 1, message = "Kapaciteten måste vara minst 1.")
     private int kapacitet;
 
-    @DecimalMin(value = "300.00", message = "Priset måste vara minst 300 kr per natt.")
+    @DecimalMin(value = "500.00", message = "Priset måste vara minst 500 kr per natt.")
     private double pris;
 
     public Rum(int nummer, int storlek, String typ, int kapacitet, double pris) {
