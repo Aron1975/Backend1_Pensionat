@@ -5,6 +5,7 @@ import com.backend1.pensionat.dtos.KundDto;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 public class KundServiceImpl implements KundService {
 
     private final KundRepo kundRepo;
+
 
     @Override
     public List<DetailedKundDto> getAllKunder() {
