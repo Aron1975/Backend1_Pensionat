@@ -41,6 +41,13 @@ public class BokningController {
 
     @RequestMapping("/all")
     public String allBokings(Model model) {
+        List<Bokning> bokning = bokningRepo.findAll();
+        bokning.forEach((b) -> {
+            if(b.getKund() == null){
+                Long j = b.getId();
+                bokningRepo.deleteById(j);
+            }
+        });
         List<DetailedBokningDto> responseList = bokningService.getAllBokningar();
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "bokningar");
