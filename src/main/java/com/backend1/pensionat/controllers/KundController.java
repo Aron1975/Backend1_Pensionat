@@ -57,7 +57,7 @@ public class KundController {
             return "addKund";
         }
         kundServiceImp.spara(kund);
-        return "redirect:/kund/all";
+        return "redirect:/bokning/addkund";
     }
 
 
