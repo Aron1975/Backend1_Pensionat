@@ -6,11 +6,13 @@ import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
 import com.backend1.pensionat.services.impl.KundServiceImpl;
+import jakarta.validation.Valid;
 import jakarta.persistence.Id;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,22 +40,28 @@ public class KundController {
         kundService.deleteKundById(id);
         return "redirect:/kund/all";
     }
-/*
-    @RequestMapping("/add")
-    public String addKund(Model model) {
-        //kundRepo.deleteById(id);
-        return "addKund"; //note
-    }
-*/
+    /*
+        @RequestMapping("/add")
+        public String addKund(Model model) {
+            //kundRepo.deleteById(id);
+            return "addKund"; //note
+        }
+    */
     @PostMapping("/add")
-        public String sparaKund(DetailedKundDto kund) {
-        kundService.spara(kund);
+    public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("kat", "Lägg till ny kund");
+            model.addAttribute("titel", "Kund");
+            return "addKund";
+        }
+        kundServiceImp.spara(kund);
         return "redirect:/kund/all";
     }
 
+
     @GetMapping("/ny")
     public String nyKund(Model model) {
-        model.addAttribute("kat", "Ny kund");
+        model.addAttribute("kat", "Lägg till ny kund");
         model.addAttribute("titel", "Kund");
         model.addAttribute("kund", new DetailedKundDto());
         return "addKund";
@@ -66,5 +74,10 @@ public class KundController {
         model.addAttribute("titel", "Kund");
         model.addAttribute("kund", kund);
         return "addKund";
+    }
+
+
+    public boolean checkIfKundHasBokning(long kundId){
+        return bokningRepo.getKundIdList().stream().anyMatch(kund -> kund.getId() == kundId);
     }
 }

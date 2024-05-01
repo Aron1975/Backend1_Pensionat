@@ -7,6 +7,7 @@ import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.KundService;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class KundServiceImpl implements KundService {
 
     private final KundRepo kundRepo;
     private final BokningRepo bokningsRepo;
+
 
     @Override
     public List<DetailedKundDto> getAllKunder() {
