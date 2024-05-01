@@ -25,6 +25,8 @@ public class KundController {
     private final KundRepo kundRepo;
     private final BokningRepo bokningRepo;
     private final KundService kundService;
+    @Autowired
+    private final KundServiceImpl kundServiceImp;
 
     @RequestMapping("/all")
     public String getAllKunder(Model model) {
