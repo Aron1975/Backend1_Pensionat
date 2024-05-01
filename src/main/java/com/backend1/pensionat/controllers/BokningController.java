@@ -44,7 +44,7 @@ public class BokningController {
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "bokningar");
         model.addAttribute("titel", "Bokning");
-        return "/allaBokningar";  //testing igen
+        return "allaBokningar";  //testing igen
     }
     //@ResponseBody
     /*@RequestMapping("/{id}/addkund")
