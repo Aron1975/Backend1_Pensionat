@@ -10,6 +10,7 @@ import java.util.List;
 public interface KundService {
 
 
+    
     public List<DetailedKundDto> getAllKunder();
 
     public DetailedKundDto kundToDetailedKundDto(Kund k);
@@ -18,6 +19,11 @@ public interface KundService {
 
     public KundDto kundToKundDto(Kund k);
 
+    public void deleteKundById(long id);
+
+    public void spara(DetailedKundDto k);
+
+    public DetailedKundDto getKund(Integer id);
 
 
 

@@ -38,24 +38,35 @@ public class RumController {
         return "/allaRum";
     }
 
+    @RequestMapping("/")
+    public String start(Model model) {
+        model.addAttribute("errorMessage", "Felaktig datumintervall angiven!");
+        return "index";
+    }
+
     @RequestMapping("/sök")
     public String findRum(@RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
-        List<RumDto> availableRumList = new ArrayList<>();
+
+        if(startDate.isBlank() || startDate.isEmpty() || stopDate.isBlank() || stopDate.isEmpty()){
+            return "redirect:/rum/";
+        }
+        LocalDate chin = LocalDate.parse(startDate);
+        LocalDate chout = LocalDate.parse(stopDate);
+        if(chout.isBefore(chin)||chout.isEqual(chin)){
+            return "redirect:/rum/";
+        }
+
         List<RumDto> availableRumByCapacity = rumService.getAvailableRum(guests);
         LocalDate startDatum = LocalDate.parse(startDate);
         LocalDate stopDatum = LocalDate.parse(stopDate);
-        availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
-       /* List<Object> bokningsdetaljer = new ArrayList<>();
-        bokningsdetaljer.add(guests);
-        bokningsdetaljer.add(startDate);
-        bokningsdetaljer.add(stopDate);
-        model.addAttribute("bokningsdetaljer", bokningsdetaljer);*/
+        List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
         model.addAttribute("availableRumList", availableRumList);
         model.addAttribute("startDatum", startDate);
         model.addAttribute("stopDatum", stopDate);
         model.addAttribute("antal", guests);
         return "allaLedigaRum";
     }
+
     @RequestMapping("/boka/{id}")
     public String findRum(Model model, @PathVariable int id, @RequestParam String startDate, @RequestParam String stopDate, @RequestParam int guests) {
         model.addAttribute("rumId", id);
