@@ -1,9 +1,9 @@
 package com.backend1.pensionat.controllers;
 
 
+import com.backend1.pensionat.dtos.BokningDto;
 import com.backend1.pensionat.dtos.DetailedBokningDto;
 import com.backend1.pensionat.dtos.DetailedKundDto;
-import com.backend1.pensionat.dtos.KundDto;
 import com.backend1.pensionat.models.Bokning;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.models.Rum;
@@ -14,12 +14,13 @@ import com.backend1.pensionat.services.BokningService;
 import com.backend1.pensionat.services.KundService;
 import com.backend1.pensionat.services.impl.BokningServiceImpl;
 import lombok.RequiredArgsConstructor;
-import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -44,22 +45,12 @@ public class BokningController {
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "bokningar");
         model.addAttribute("titel", "Bokning");
-        return "allaBokningar";  //testing igen
+        return "/allaBokningar";  //testing igen
     }
-    //@ResponseBody
-    /*@RequestMapping("/{id}/addkund")
-    public String sparaBokningTillKund(@PathVariable String id, Model model){
-        List<DetailedKundDto> responseList = kundService.getAllKunder();
-        model.addAttribute("responseList", responseList);
-        model.addAttribute("kat", "kunder");
-        model.addAttribute("titel", "Kund");
-        Long bokningsId = Long.parseLong(id);
-        return "bokaKund";
-    }*/
     @RequestMapping("/addkund/{id}")
     public String uppdateraBokning(@PathVariable String id){
-        List<DetailedBokningDto> responseList = bokningService.getAllBokningar();
-        DetailedBokningDto d = responseList.get(responseList.size() -1);
+        List<BokningDto> responseList = bokningService.getAllBokningar2();
+        BokningDto d = responseList.get(responseList.size() -1);
         String bokningIdString = String.valueOf(d.getId());
         Long bokningsId = Long.parseLong(bokningIdString);
         Long kundId = Long.parseLong(id);
@@ -94,8 +85,6 @@ public class BokningController {
         //return "Test" + bokningId + " " /*+ kundDto.getId();
     }*/
 
-
-
     @RequestMapping("/{id}/add")
     public String sparaBokning(@PathVariable String id, @RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum) {
 
@@ -106,15 +95,14 @@ public class BokningController {
         LocalDate utch = LocalDate.parse(stopDatum);
         long antalDagar = DAYS.between(inch, utch);
         bokningRepo.save(Bokning.builder().bokningsDatum(LocalDate.now()).startDatum(inch).slutDatum(utch).antalGäster(antal).antalExtraSängar(antal-2).totalPris(rum.getPris()*antalDagar).rum(rum).build());
-        /*List<DetailedBokningDto> responseList = bokningService.getAllBokningar();
-        DetailedBokningDto D = responseList.get(responseList.size() -1);
-        String id2 = String.valueOf(D.getId());*/
+
+        //bokningService.spara(bokning);
         return "redirect:/bokning/addkund";
     }
 
-
     @RequestMapping("/delete/{id}")
     public String deleteBokningById(@PathVariable long id, Model model) {
+        //Bokning bokningToDelete = bokningService.findBokningById(id);
         bokningRepo.deleteById(id);
 
         return "redirect:/bokning/all";

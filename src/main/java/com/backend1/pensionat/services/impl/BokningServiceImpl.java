@@ -1,6 +1,8 @@
 package com.backend1.pensionat.services.impl;
 
+import com.backend1.pensionat.dtos.BokningDto;
 import com.backend1.pensionat.dtos.DetailedBokningDto;
+import com.backend1.pensionat.dtos.KundDto;
 import com.backend1.pensionat.dtos.RumDto;
 import com.backend1.pensionat.models.Bokning;
 import com.backend1.pensionat.repos.BokningRepo;
@@ -18,16 +20,28 @@ public class BokningServiceImpl implements BokningService {
 
     private final BokningRepo bokningRepo;
 
-
+    @Override
     public List<DetailedBokningDto> getAllBokningar() {
         return bokningRepo.findAll().stream().map(b -> bokningToDetailedBokningDto(b)).toList();
     }
 
     @Override
+    public List<BokningDto> getAllBokningar2() {
+        return bokningRepo.findAll().stream().map(b -> bokningToBokningDto(b)).toList();
+    }
+
+    @Override
+    public BokningDto bokningToBokningDto(Bokning b) {
+        return BokningDto.builder().id(b.getId()).bokningsDatum(b.getBokningsDatum()).startDatum(b.getStartDatum())
+                .slutDatum(b.getSlutDatum()).antalGäster(b.getAntalGäster()).antalExtraSängar(b.getAntalExtraSängar()).totalPris(b.getTotalPris())
+                .rum(new RumDto(b.getRum().getId(), b.getRum().getTyp(),b.getRum().getPris(), b.getRum().getStorlek(), b.getRum().getKapacitet(), b.getRum().getNummer())).build();
+
+    }
+    @Override
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b) {
         return DetailedBokningDto.builder().id(b.getId()).bokningsDatum(b.getBokningsDatum()).startDatum(b.getStartDatum())
                 .slutDatum(b.getSlutDatum()).antalGäster(b.getAntalGäster()).antalExtraSängar(b.getAntalExtraSängar())
-                .totalPris(b.getTotalPris())/*.kund(new KundDto(b.getKund().getId(), b.getKund().getSsn(), b.getKund().getFörnamn(), b.getKund().getEfternamn()))*/
+                .totalPris(b.getTotalPris()).kund(new KundDto(b.getKund().getId(), b.getKund().getSsn(), b.getKund().getFörnamn(), b.getKund().getEfternamn()))
                 .rum(new RumDto(b.getRum().getId(), b.getRum().getTyp(),b.getRum().getPris(), b.getRum().getStorlek(), b.getRum().getKapacitet(), b.getRum().getNummer())).build();
 
     }
@@ -35,15 +49,16 @@ public class BokningServiceImpl implements BokningService {
     @Override
     public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate) {
         List<RumDto> availableRumByDate = new ArrayList<>();
-        List<DetailedBokningDto> allaBokningar = getAllBokningar();
+        //List<DetailedBokningDto> allaBokningar = getAllBokningar();
+        List<BokningDto> allaBokningar = getAllBokningar2();
         //List<Long> bookedRumIds = allaBokningar.stream().map(i -> i.getRum().getId()).toList();
         boolean isBooked = false;
-        if (getAllBokningar().isEmpty()) {
+        if (getAllBokningar2().isEmpty()) {
             availableRumByDate = availableRumByCapacity;
         }
         else {
             for (RumDto r : availableRumByCapacity) {
-                for (DetailedBokningDto b : allaBokningar) {
+                for (BokningDto b : allaBokningar) {
                     if (r.getId() == b.getRum().getId()) {
                         if ((startDate.isBefore(b.getSlutDatum()) && stopDate.isAfter(b.getStartDatum()))) {
                             isBooked = true;
@@ -67,7 +82,7 @@ public class BokningServiceImpl implements BokningService {
     }
 
     @Override
-    public void sparaBokningTillKund(DetailedBokningDto b){
+    public void sparaBokningTillKund(DetailedBokningDto b) {
 
     }
 }
