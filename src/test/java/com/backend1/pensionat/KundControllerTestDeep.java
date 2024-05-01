@@ -165,9 +165,8 @@ public class KundControllerTestDeep {
     }
 */
 
-    @Test
+    @Test            //funkar ej
     public void testSparaKund() throws Exception {
-        // Create a mock DetailedKundDto object
 
         DetailedKundDto mockKund = new DetailedKundDto();
         mockKund.setId(1L);
@@ -181,22 +180,19 @@ public class KundControllerTestDeep {
 
 
 
-        // Convert the mockKund object to JSON string
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonContent = objectMapper.writeValueAsString(mockKund);
 
-        // Perform a POST request to the /add endpoint with the JSON content
         MvcResult result = mvc.perform(post("/kund/add")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonContent.getBytes()))
-                .andExpect(status().is3xxRedirection()) // Expect a redirection
+                .andExpect(status().is3xxRedirection())
                 .andReturn();
 
-        // Verify that the redirection URL is as expected
+
         String redirectUrl = result.getResponse().getRedirectedUrl();
         assertEquals("/kund/all", redirectUrl);
 
-        // Verify that the spara method of mockKundService was called with the mockKund object
         verify(mockKundService).spara(mockKund);
     }
 
