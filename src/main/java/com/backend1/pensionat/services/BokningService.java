@@ -15,4 +15,5 @@ public interface BokningService {
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b);
     public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate);
     public void sparaBokning(DetailedBokningDto b);
+    void sparaBokningTillKund(DetailedBokningDto b);
 }
