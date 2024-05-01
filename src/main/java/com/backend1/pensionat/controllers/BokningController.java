@@ -41,6 +41,7 @@ public class BokningController {
 
     @RequestMapping("/all")
     public String allBokings(Model model) {
+        bokningService.deleteBokningWithoutKundId();
         List<DetailedBokningDto> responseList = bokningService.getAllBokningar();
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "bokningar");
@@ -94,7 +95,11 @@ public class BokningController {
         LocalDate inch = LocalDate.parse(startDatum);
         LocalDate utch = LocalDate.parse(stopDatum);
         long antalDagar = DAYS.between(inch, utch);
-        bokningRepo.save(Bokning.builder().bokningsDatum(LocalDate.now()).startDatum(inch).slutDatum(utch).antalGäster(antal).antalExtraSängar(antal-2).totalPris(rum.getPris()*antalDagar).rum(rum).build());
+        int antalExtraSängar = 1;
+        if (antal == 1) {
+            antalExtraSängar = 0;
+        } else antalExtraSängar = antal - 2;
+        bokningRepo.save(Bokning.builder().bokningsDatum(LocalDate.now()).startDatum(inch).slutDatum(utch).antalGäster(antal).antalExtraSängar(antalExtraSängar).totalPris(rum.getPris()*antalDagar).rum(rum).build());
 
         //bokningService.spara(bokning);
         return "redirect:/bokning/addkund";

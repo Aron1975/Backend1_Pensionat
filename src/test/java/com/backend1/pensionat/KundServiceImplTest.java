@@ -3,6 +3,7 @@ package com.backend1.pensionat;
 
 import com.backend1.pensionat.dtos.DetailedKundDto;
 import com.backend1.pensionat.models.Kund;
+import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.services.impl.KundServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -23,10 +24,12 @@ public class KundServiceImplTest {
 
 
     @Mock
+    private BokningRepo bokningRepo;
+    @Mock
     private KundRepo kundRepo;
 
 
-    private KundServiceImpl kundService = new KundServiceImpl(kundRepo);
+    private KundServiceImpl kundService = new KundServiceImpl(kundRepo, bokningRepo);
 
 
 
@@ -110,7 +113,7 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
         kund.setId(1L);
 
         when(kundRepo.findAll()).thenReturn(Arrays.asList(kund));
-        kundService = new KundServiceImpl(kundRepo);
+        kundService = new KundServiceImpl(kundRepo, bokningRepo);
         List<DetailedKundDto> allakunder = kundService.getAllKunder();
 
         assertTrue(allakunder.size() == 1);     //blir fel om man tar 2

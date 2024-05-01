@@ -75,7 +75,7 @@
     </thead>
     <tbody>
     <tr th:each="bokning : ${responseList}">
-        <!--/*<td th:text="${bokning.kund.förnamn} + ' ' + ${bokning.kund.efternamn}"></td>*/-->
+        <td th:text="${bokning.kund.förnamn} + ' ' + ${bokning.kund.efternamn}"></td>
         <td th:text="${bokning.rum.nummer}"></td>
         <td th:text="${bokning.startDatum}"></td>
         <td th:text="${bokning.slutDatum}"></td>

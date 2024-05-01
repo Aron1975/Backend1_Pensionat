@@ -11,6 +11,8 @@ import java.util.List;
 public interface BokningService {
 
     public List<DetailedBokningDto> getAllBokningar();
+
+    public void deleteBokningWithoutKundId();
     public List<BokningDto> getAllBokningar2();
 
     BokningDto bokningToBokningDto(Bokning b);

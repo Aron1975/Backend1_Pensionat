@@ -26,6 +26,16 @@ public class BokningServiceImpl implements BokningService {
     }
 
     @Override
+    public void deleteBokningWithoutKundId() {
+        List<Bokning> bokningar = bokningRepo.findAll();
+        for (Bokning bokning : bokningar) {
+            if (bokning.getKund() == null) {
+                bokningRepo.delete(bokning);
+            }
+        }
+    }
+
+    @Override
     public List<BokningDto> getAllBokningar2() {
         return bokningRepo.findAll().stream().map(b -> bokningToBokningDto(b)).toList();
     }

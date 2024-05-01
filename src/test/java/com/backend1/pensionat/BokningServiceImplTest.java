@@ -24,13 +24,13 @@ public class BokningServiceImplTest {
 
     @Mock
     BokningRepo bokningRepo;
-
     @Mock
     KundRepo kundRepo;
 
     BokningServiceImpl bokningServiceImpl = new BokningServiceImpl(bokningRepo);
 
-    KundServiceImpl kundService = new KundServiceImpl(kundRepo);
+
+    KundServiceImpl kundService = new KundServiceImpl(kundRepo, bokningRepo);
 
 
 /*
