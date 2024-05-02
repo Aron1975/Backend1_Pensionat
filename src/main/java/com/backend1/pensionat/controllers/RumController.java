@@ -61,7 +61,7 @@ public class RumController {
         LocalDate stopDatum = LocalDate.parse(stopDate);
         List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
         String searchMessage = "";
-        String searchImg = "";
+        //String searchImg = "";
         boolean has_logo = false;
         if(availableRumList.isEmpty()){
             searchMessage = "Rum nicht verfügbar. Keine Stelle frei";

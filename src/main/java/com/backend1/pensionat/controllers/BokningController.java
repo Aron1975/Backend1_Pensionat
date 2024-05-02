@@ -66,7 +66,7 @@ public class BokningController {
         List<DetailedKundDto> responseList = kundService.getAllKunder();
         model.addAttribute("responseList", responseList);
         model.addAttribute("kat", "kund");
-        model.addAttribute("titel", "Kunder");
+        model.addAttribute("titel", "Bokning");
         return "bokaKund";
     }
 

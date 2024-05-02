@@ -71,3 +71,10 @@ button{
     width: 300px;
     height: 300px;
 }
+
+#error-msg{
+    text-align: center;
+    color: darkred;
+    margin-top: 15px;
+    font-size: 20px;
+}
