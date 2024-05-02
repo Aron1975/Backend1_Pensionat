@@ -20,6 +20,7 @@ public interface BokningService {
     //public void deleteNullBokning(Bokning b);
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b);
     public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate);
+    public List<RumDto> getAvailableRumByDate2(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate, long id);
 
     //void deleteNullBokning();
 

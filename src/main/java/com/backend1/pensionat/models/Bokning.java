@@ -24,7 +24,7 @@ public class Bokning {
     private long id;
 
     @NotNull(message = "Bokningsdatum får inte vara null.")
-    @FutureOrPresent(message = "Bokningsdatum måste vara idag eller i framtiden.")
+    //@FutureOrPresent(message = "Bokningsdatum måste vara idag eller i framtiden.")
     @Column(nullable = false)
     private LocalDate bokningsDatum;
 

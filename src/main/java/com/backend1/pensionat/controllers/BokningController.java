@@ -98,11 +98,15 @@ public class BokningController {
         Rum rum = rumRepo.findById(rumId).get();
         Bokning bokning = bokningRepo.findById(bokningsId).get();
         long antalDagar = DAYS.between(inch, utch);
+        int antalExtraSängar = 1;
+        if (antal == 1) {
+            antalExtraSängar = 0;
+        } else antalExtraSängar = antal - 2;
         bokning.setRum(rum);
         bokning.setStartDatum(inch);
         bokning.setSlutDatum(utch);
         bokning.setAntalGäster(antal);
-        bokning.setAntalExtraSängar(antal-2);
+        bokning.setAntalExtraSängar(antalExtraSängar);
         bokning.setTotalPris(rum.getPris()*antalDagar);
         bokningRepo.save(bokning);
         return "redirect:/bokning/all";
@@ -128,7 +132,7 @@ public class BokningController {
         List<RumDto> availableRumByCapacity = rumService.getAvailableRum(guests);
         LocalDate startDatum = LocalDate.parse(startDate);
         LocalDate stopDatum = LocalDate.parse(stopDate);
-        List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
+        List<RumDto> availableRumList = bokningService.getAvailableRumByDate2(availableRumByCapacity, startDatum, stopDatum, id);
         model.addAttribute("bokningsId", id);
         model.addAttribute("availableRumList", availableRumList);
         model.addAttribute("startDatum", startDate);
