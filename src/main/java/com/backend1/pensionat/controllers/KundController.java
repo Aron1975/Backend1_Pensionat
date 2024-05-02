@@ -42,13 +42,7 @@ public class KundController {
         kundService.deleteKundById(id);
         return "redirect:/kund/all";
     }
-    /*
-        @RequestMapping("/add")
-        public String addKund(Model model) {
-            //kundRepo.deleteById(id);
-            return "addKund"; //note
-        }
-    */
+
     @PostMapping("/add")
     public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model, @RequestParam String redirect ) {
         System.out.println("red1: " + redirect);
@@ -62,8 +56,6 @@ public class KundController {
         }
         kundServiceImp.spara(kund);
         return "redirect:" + redirect;
-        //return redirect;
-        //return
     }
 
     @GetMapping("/ny")

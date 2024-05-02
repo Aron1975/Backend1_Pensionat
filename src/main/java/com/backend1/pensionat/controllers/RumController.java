@@ -60,9 +60,9 @@ public class RumController {
         LocalDate startDatum = LocalDate.parse(startDate);
         LocalDate stopDatum = LocalDate.parse(stopDate);
         List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
-        String searchMessage = "Rum finnes";
+        String searchMessage = "";
         if(availableRumList.isEmpty()){
-            searchMessage = "Datum gespeichert!";
+            searchMessage = "Rum nicht verfügbar. Keine Stelle frei";
         }
         model.addAttribute("availableRumList", availableRumList);
         model.addAttribute("startDatum", startDate);
