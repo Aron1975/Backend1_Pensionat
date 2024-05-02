@@ -64,6 +64,7 @@ public class KundController {
     public String nyKundFrånKundLista(Model model) {
         model.addAttribute("kund", new DetailedKundDto());
         model.addAttribute("redirect", "kund/all");
+        model.addAttribute("cancelRedirect", "/kund/all");
         model.addAttribute("kat", "Lägg till ny kund");
         model.addAttribute("titel", "Kund");
         return "addKund";
@@ -72,6 +73,7 @@ public class KundController {
     public String nyKundFrånBokning(Model model) {
         model.addAttribute("kund", new DetailedKundDto());
         model.addAttribute("redirect", "bokning/addkund");
+        model.addAttribute("cancelRedirect", "/bokning/addkund");
         model.addAttribute("kat", "Lägg till ny kund från bokning");
         model.addAttribute("titel", "Ny kund för bokning");
         return "addKund";
