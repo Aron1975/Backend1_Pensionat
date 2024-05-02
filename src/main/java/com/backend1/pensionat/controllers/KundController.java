@@ -83,6 +83,8 @@ public class KundController {
         model.addAttribute("kat", "Ändra kunduppgifter");
         model.addAttribute("titel", "Kund");
         model.addAttribute("kund", kund);
+        model.addAttribute("redirect", "/kund/all");
+        model.addAttribute("cancelRedirect", "/kund/all");
         return "addKund";
     }
 
