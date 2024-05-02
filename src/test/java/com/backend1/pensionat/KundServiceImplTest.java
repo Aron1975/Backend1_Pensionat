@@ -154,13 +154,4 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
        assertTrue(hej.equalsIgnoreCase("hej där"));
     }
 
-
-*/
-
-
-
-
-
-
-
 }
