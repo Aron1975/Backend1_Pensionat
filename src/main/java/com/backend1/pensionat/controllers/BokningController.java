@@ -122,12 +122,12 @@ public class BokningController {
     public String findRum(@PathVariable long id, @RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
 
         if(startDate.isBlank() || startDate.isEmpty() || stopDate.isBlank() || stopDate.isEmpty()){
-            return "redirect:/rum/";
+            return "redirect:/bokning/redigera/{id}";
         }
         LocalDate chin = LocalDate.parse(startDate);
         LocalDate chout = LocalDate.parse(stopDate);
         if(chout.isBefore(chin)||chout.isEqual(chin)){
-            return "redirect:/rum/";
+            return "redirect:/bokning/redigera/{id}";
         }
         List<RumDto> availableRumByCapacity = rumService.getAvailableRum(guests);
         LocalDate startDatum = LocalDate.parse(startDate);
