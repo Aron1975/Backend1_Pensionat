@@ -43,7 +43,7 @@ import java.util.Optional;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-//testa anrop i controller, och mockdata i service?
+//testa anrop i controller, och mockdata i service?  //icke fungerande nu...
 
 @SpringBootTest
 @AutoConfigureMockMvc
