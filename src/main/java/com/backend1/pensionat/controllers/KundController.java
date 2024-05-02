@@ -50,22 +50,30 @@ public class KundController {
         }
     */
     @PostMapping("/add")
-    public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model) {
+    public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model, @RequestParam String redirect ) {
         if (result.hasErrors()) {
             model.addAttribute("kat", "Lägg till ny kund");
             model.addAttribute("titel", "Kund");
             return "addKund";
         }
         kundServiceImp.spara(kund);
-        return "redirect:/bokning/addkund";
+        return "redirect:/" + redirect;
     }
 
-
     @GetMapping("/ny")
-    public String nyKund(Model model) {
+    public String nyKundFrånKundLista(Model model) {
+        model.addAttribute("kund", new DetailedKundDto());
+        model.addAttribute("redirect", "kund/all");
         model.addAttribute("kat", "Lägg till ny kund");
         model.addAttribute("titel", "Kund");
+        return "addKund";
+    }
+    @GetMapping("/nyFrånBokning")
+    public String nyKundFrånBokning(Model model) {
         model.addAttribute("kund", new DetailedKundDto());
+        model.addAttribute("redirect", "bokning/addkund");
+        model.addAttribute("kat", "Lägg till ny kund från bokning");
+        model.addAttribute("titel", "Ny kund för bokning");
         return "addKund";
     }
 

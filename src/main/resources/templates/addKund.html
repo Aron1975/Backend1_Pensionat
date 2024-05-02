@@ -65,6 +65,8 @@
     <div class="row">
         <form th:action="@{/kund/add}" method="post" th:object="${kund}">
             <input type="hidden" th:field="*{id}">
+            <input type="hidden" name="redirect" th:value="${redirect}" />
+
             <div class="row m-4">
                 <div class="col">
                     <label>Förnamn</label>
