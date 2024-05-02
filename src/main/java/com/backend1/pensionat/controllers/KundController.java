@@ -51,9 +51,9 @@ public class KundController {
     */
     @PostMapping("/add")
     public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model, @RequestParam String redirect ) {
-
+        System.out.println("red1: " + redirect);
         if (result.hasErrors()) {
-            System.out.println("red: " + redirect);
+            System.out.println("red2: " + redirect);
             model.addAttribute("kat", "Lägg till ny kund");
             model.addAttribute("titel", "Kund");
             model.addAttribute("redirect", redirect);
@@ -61,8 +61,9 @@ public class KundController {
             return "addKund";
         }
         kundServiceImp.spara(kund);
-        //return "redirect:/" + redirect;
-        return redirect;
+        return "redirect:" + redirect;
+        //return redirect;
+        //return
     }
 
     @GetMapping("/ny")
