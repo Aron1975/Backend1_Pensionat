@@ -61,14 +61,20 @@ public class RumController {
         LocalDate stopDatum = LocalDate.parse(stopDate);
         List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
         String searchMessage = "";
+        //String searchImg = "";
+        boolean has_logo = false;
         if(availableRumList.isEmpty()){
             searchMessage = "Rum nicht verfügbar. Keine Stelle frei";
+            //searchImg = "/images/moose.jpg";
+            has_logo = true;
         }
         model.addAttribute("availableRumList", availableRumList);
         model.addAttribute("startDatum", startDate);
         model.addAttribute("stopDatum", stopDate);
         model.addAttribute("antal", guests);
         model.addAttribute("noAvRumMessage", searchMessage);
+        //model.addAttribute("searchImg", searchImg);
+        model.addAttribute("has_logo", has_logo);
         return "allaLedigaRum";
     }
 

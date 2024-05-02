@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -107,15 +108,16 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
     */
 
 
-    @Test
+    @Test  //testar få ut kunder
     void testgetAllKunder() {
 
         Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
                 "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
         kund.setId(1L);
 
-        when(kundRepo.findAll()).thenReturn(Arrays.asList(kund));
-        kundService = new KundServiceImpl(kundRepo, bokningRepo);
+        when(kundRepo.findAll()).thenReturn(Arrays.asList(kund));   //när kundrepo utför findall, ska vi få vår kund
+        //enbart som en list
+        kundService = new KundServiceImpl(kundRepo, bokningRepo);  //behöver denna annars fel
         List<DetailedKundDto> allakunder = kundService.getAllKunder();
 
         assertTrue(allakunder.size() == 1);     //blir fel om man tar 2
@@ -124,24 +126,18 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
 
     }
 
-
-
-
-/* svår metod att testa? returnar void o sparar i databas
- public void spara(DetailedKundDto k){
+/*
+ public String spara(DetailedKundDto k){
         Kund kund = detailedKundDtoToKund(k);
         kundRepo.save(kund);
-
-    }
- */
-
+        return "hej där";
+        */
 
 
-
-    
-   @Test
+    @Test
     void testSpara() {
 
+        //borde egentligen använda en init som påbörjar allt...
        // when (kundRepo.save(kund))
         DetailedKundDto detailedKundDto = DetailedKundDto.builder().id(1L).ssn("123456").förnamn("karl")
                 .efternamn("karlsson").adress("Vegavägen 23").stad("somewhere").mobilnummer("1235-3234")
@@ -150,7 +146,7 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
         Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
                 "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
 
-        kundService = new KundServiceImpl(kundRepo, bokningRepo);
+        kundService = new KundServiceImpl(kundRepo, bokningRepo); //måste skapa upp igen annars fel..
         when(kundRepo.save(kund)).thenReturn(kund);
        // when(kundService.detailedKundDtoToKund(detailedKundDto)).thenReturn(kund);
        String hej = kundService.spara(detailedKundDto);
@@ -159,7 +155,7 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
     }
 
 
-
+*/
 
 
 

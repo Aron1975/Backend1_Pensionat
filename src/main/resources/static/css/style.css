@@ -50,3 +50,31 @@ button{
 .is-invalid {
     border-color: red;
 }
+
+#moose{
+    display: flex;
+    justify-content: center;
+  /*  color: gold;
+    font-size: 20px;
+    text-align: center;*/
+}
+#moose2{
+ /*   display: flex;
+    justify-content: center;*/
+    color: gold;
+    font-size: 20px;
+    text-align: center;
+}
+
+#pic{
+    /*display: inline;*/
+    width: 300px;
+    height: 300px;
+}
+
+#error-msg{
+    text-align: center;
+    color: darkred;
+    margin-top: 15px;
+    font-size: 20px;
+}

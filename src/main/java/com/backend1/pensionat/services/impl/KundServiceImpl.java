@@ -51,9 +51,10 @@ public class KundServiceImpl implements KundService {
 
     public String spara(DetailedKundDto k){
         Kund kund = detailedKundDtoToKund(k);
-        String hej = "hej där";
         kundRepo.save(kund);
-        return hej;
+       String hej = "hej där";   //för test skull
+       return hej;
+
     }
 
     @Override

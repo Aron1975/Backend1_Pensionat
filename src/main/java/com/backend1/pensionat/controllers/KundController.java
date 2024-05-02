@@ -54,7 +54,7 @@ public class KundController {
             model.addAttribute("cancelRedirect", redirect);
             return "addKund";
         }
-        kundServiceImp.spara(kund);
+        kundServiceImp.spara(kund);   //varför icke error? den returnar ju något...
         return "redirect:" + redirect;
     }
 
