@@ -17,16 +17,16 @@ public class Backend1PensionatApplication {
 	}
 
 
-   /*
+/*
 	@Bean
 	public CommandLineRunner commandLineRunner(KundRepo kundRepo, RumRepo rumRepo) {
 
 		return args -> {
-			Kund k1 = new Kund("Stockholm", "Globen", "Kund@email.com", "07013456", "Kasper", "Bo", "701210-0012");
+			Kund k1 = new Kund("Stockholm", "Globen", "Kund@email.com", "0701345613", "Kasper", "Bo", "7012100012");
 			kundRepo.save(k1);
-			Kund k2 = new Kund("Malmö", "Brogatan", "Kund2@email.com", "12345678", "Plomeros", "Leifi", "650509-2365");
+			Kund k2 = new Kund("Malmö", "Brogatan", "Kund2@email.com", "1234567813", "Plomeros", "Leifi", "6505092365");
 			kundRepo.save(k2);
-			Kund k3 = new Kund("Göteborg", "Torget", "Kund@email.com", "98765432", "Close", "Glenn", "930604-9035");
+			Kund k3 = new Kund("Göteborg", "Torget", "Kund3@email.com", "9876543244", "Close", "Glenn", "9306049035");
 			kundRepo.save(k3);
 
 
@@ -58,7 +58,6 @@ public class Backend1PensionatApplication {
 			rumRepo.save(r12);
 
 		};
-	}*/
-
-
+	}
+*/
 }

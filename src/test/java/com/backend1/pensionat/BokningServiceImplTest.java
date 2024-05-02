@@ -28,9 +28,6 @@ public class BokningServiceImplTest {
     @Mock
     KundRepo kundRepo;
 
-
-
-
     BokningServiceImpl bokningServiceImpl = new BokningServiceImpl(bokningRepo);
 
     KundServiceImpl kundService = new KundServiceImpl(kundRepo, bokningRepo);

@@ -42,30 +42,38 @@ public class KundController {
         kundService.deleteKundById(id);
         return "redirect:/kund/all";
     }
-    /*
-        @RequestMapping("/add")
-        public String addKund(Model model) {
-            //kundRepo.deleteById(id);
-            return "addKund"; //note
-        }
-    */
+
     @PostMapping("/add")
-    public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model) {
+    public String sparaKund(@Valid @ModelAttribute("kund") DetailedKundDto kund, BindingResult result, Model model, @RequestParam String redirect ) {
+        System.out.println("red1: " + redirect);
         if (result.hasErrors()) {
+            System.out.println("red2: " + redirect);
             model.addAttribute("kat", "Lägg till ny kund");
             model.addAttribute("titel", "Kund");
+            model.addAttribute("redirect", redirect);
+            model.addAttribute("cancelRedirect", redirect);
             return "addKund";
         }
         kundServiceImp.spara(kund);
-        return "redirect:/kund/all";
+        return "redirect:" + redirect;
     }
 
-
     @GetMapping("/ny")
-    public String nyKund(Model model) {
+    public String nyKundFrånKundLista(Model model) {
+        model.addAttribute("kund", new DetailedKundDto());
+        model.addAttribute("redirect", "/kund/all");
+        model.addAttribute("cancelRedirect", "/kund/all");
         model.addAttribute("kat", "Lägg till ny kund");
         model.addAttribute("titel", "Kund");
+        return "addKund";
+    }
+    @GetMapping("/nyFrånBokning")
+    public String nyKundFrånBokning(Model model) {
         model.addAttribute("kund", new DetailedKundDto());
+        model.addAttribute("redirect", "/bokning/addkund");
+        model.addAttribute("cancelRedirect", "/bokning/addkund");
+        model.addAttribute("kat", "Lägg till ny kund från bokning");
+        model.addAttribute("titel", "Ny kund för bokning");
         return "addKund";
     }
 
