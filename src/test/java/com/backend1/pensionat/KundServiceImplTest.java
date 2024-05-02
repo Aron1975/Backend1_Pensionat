@@ -95,6 +95,7 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
        assertEquals(detailedKundDto.getMobilnummer(), kund.getMobilnummer());
        assertEquals(detailedKundDto.getEmail(), kund.getEmail());
 
+       assertEquals(kund.getSsn(), "123456");
    }
 
 

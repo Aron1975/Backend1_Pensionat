@@ -43,8 +43,6 @@ private long id;
     private double totalPris;
  */
 
-
-
     /* test av följande
 
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b) {
@@ -56,7 +54,7 @@ private long id;
     }
      */
 
-    @Test
+    @Test    //testar konvertering från bokning till detailedbokningdto
     void testBokningToDetailedBokningDto() {
 
 
@@ -82,6 +80,9 @@ private long id;
 
         assertEquals(bokning.getId(), detailedBokningDto.getId());
         assertEquals(bokning.getBokningsDatum(), detailedBokningDto.getBokningsDatum());
+
+        assertEquals(bokning.getKund().getId(), detailedBokningDto.getKund().getId());
+        assertEquals(detailedBokningDto.getKund().getSsn(), "123456789");
 
     }
 
