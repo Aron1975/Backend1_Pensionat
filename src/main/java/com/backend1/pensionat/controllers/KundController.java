@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequiredArgsConstructor // la till denna istället för konstruktorn
+@RequiredArgsConstructor
 @RequestMapping("/kund")
 public class KundController {
 
@@ -54,7 +54,7 @@ public class KundController {
             model.addAttribute("cancelRedirect", redirect);
             return "addKund";
         }
-        kundServiceImp.spara(kund);   //varför icke error? den returnar ju något...
+        kundServiceImp.spara(kund);
         return "redirect:" + redirect;
     }
 

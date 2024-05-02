@@ -32,9 +32,11 @@ public class DetailedKundDto {
     private String efternamn;
 
     @NotBlank(message = "Ange din adress")
+    @Size(max = 50, message = "Adressen får ha maximalt 50 tecken")
     private String adress;
 
     @NotBlank(message = "Ange din stad")
+    @Size(max = 50, message = "Staden får ha maximalt 50 tecken")
     private String stad;
 
     @NotBlank(message = "Ange ditt mobilnummer")

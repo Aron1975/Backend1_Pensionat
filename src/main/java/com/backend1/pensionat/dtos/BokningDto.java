@@ -1,9 +1,6 @@
 package com.backend1.pensionat.dtos;
 
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -31,9 +28,11 @@ public class BokningDto {
     private LocalDate slutDatum;
 
     @Min(value = 1, message = "Antal gäster måste vara minst 1.")
+    @Max(value = 4, message = "Antal gäster måste vara max 4.")
     private int antalGäster;
 
     @Min(value = 0, message = "Antal extrasängar kan inte vara mindre än 0.")
+    @Max(value = 2, message = "Antal extrasängar måste vara max 2.")
     private int antalExtraSängar;
 
     @Positive(message = "Totalpriset måste vara positivt.")
