@@ -36,24 +36,13 @@ public class BokningServiceImpl implements BokningService {
 
     @Override
     public void uppdateraBokningMedKund(String kundId) {
-        // Hämta den senaste bokningen från listan av bokningar
         List<BokningDto> responseList = getAllBokningar2();
         BokningDto senasteBokning = responseList.get(responseList.size() - 1);
-
-        // Hämta bokningens ID och kundens ID
         Long bokningsId = senasteBokning.getId();
         Long kundIdLong = Long.parseLong(kundId);
-
-        // Hämta bokningen från databasen
         Bokning bokning = bokningRepo.findById(bokningsId).get();
-
-        // Hämta kunden från databasen
         Kund kund = kundRepo.findById(kundIdLong).get();
-
-        // Uppdatera bokningen med kunden
         bokning.setKund(kund);
-
-        // Spara den uppdaterade bokningen till databasen
         bokningRepo.save(bokning);
     }
 

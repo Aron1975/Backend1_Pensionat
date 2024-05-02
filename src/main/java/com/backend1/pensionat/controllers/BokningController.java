@@ -33,11 +33,8 @@ public class BokningController {
 
     private final BokningRepo bokningRepo;
     private final BokningService bokningService;
-    private final BokningServiceImpl bokningServiceImpl;
     private final RumService rumService;
     private final KundService kundService;
-    private final RumRepo rumRepo;
-    private final KundRepo kundRepo;
 
     @RequestMapping("/all")
     public String allBokings(Model model) {
@@ -107,9 +104,7 @@ public class BokningController {
 
     @RequestMapping("/delete/{id}")
     public String deleteBokningById(@PathVariable long id, Model model) {
-        //Bokning bokningToDelete = bokningService.findBokningById(id);
         bokningRepo.deleteById(id);
-
         return "redirect:/bokning/all";
     }
 }
