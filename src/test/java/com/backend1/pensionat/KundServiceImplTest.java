@@ -138,26 +138,28 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
 
 
 
-    /*
-
-
-
-    @Test
+    
+   @Test
     void testSpara() {
 
-        DetailedKundDto detailedKundDto = new DetailedKundDto();
-        detailedKundDto.setSsn("123456789");
+       // when (kundRepo.save(kund))
+        DetailedKundDto detailedKundDto = DetailedKundDto.builder().id(1L).ssn("123456").förnamn("karl")
+                .efternamn("karlsson").adress("Vegavägen 23").stad("somewhere").mobilnummer("1235-3234")
+                .email("john@hotmail.com").build();
 
-        Kund kund = new Kund();
+        Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
+                "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
 
-        when(kundService.detailedKundDtoToKund(detailedKundDto)).thenReturn(kund);
-        kundService.spara(detailedKundDto);
+        kundService = new KundServiceImpl(kundRepo, bokningRepo);
+        when(kundRepo.save(kund)).thenReturn(kund);
+       // when(kundService.detailedKundDtoToKund(detailedKundDto)).thenReturn(kund);
+       String hej = kundService.spara(detailedKundDto);
 
-        verify(kundRepo).save(kund);
+       assertTrue(hej.equalsIgnoreCase("hej där"));
     }
 
 
-*/
+
 
 
 

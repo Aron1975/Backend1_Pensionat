@@ -6,6 +6,7 @@ import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.models.Rum;
 import com.backend1.pensionat.repos.BokningRepo;
 import com.backend1.pensionat.repos.KundRepo;
+import com.backend1.pensionat.repos.RumRepo;
 import com.backend1.pensionat.services.impl.BokningServiceImpl;
 import com.backend1.pensionat.services.impl.KundServiceImpl;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,10 @@ public class BokningServiceImplTest {
     @Mock
     KundRepo kundRepo;
 
-    BokningServiceImpl bokningServiceImpl = new BokningServiceImpl(bokningRepo);
+    @Mock
+    RumRepo rumRepo;
+
+    BokningServiceImpl bokningServiceImpl = new BokningServiceImpl(bokningRepo, kundRepo, rumRepo);
 
     KundServiceImpl kundService = new KundServiceImpl(kundRepo, bokningRepo);
 

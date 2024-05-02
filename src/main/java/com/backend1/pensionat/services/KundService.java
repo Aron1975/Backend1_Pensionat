@@ -21,7 +21,7 @@ public interface KundService {
 
     public void deleteKundById(long id);
 
-    public void spara(DetailedKundDto k);
+    public String spara(DetailedKundDto k);
 
     public DetailedKundDto getKund(Integer id);
 
