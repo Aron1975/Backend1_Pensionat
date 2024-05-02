@@ -47,6 +47,12 @@ public class BokningServiceImpl implements BokningService {
                 .rum(new RumDto(b.getRum().getId(), b.getRum().getTyp(),b.getRum().getPris(), b.getRum().getStorlek(), b.getRum().getKapacitet(), b.getRum().getNummer())).build();
 
     }
+
+    /*@Override
+    public void deleteNullBokning(Bokning b) {
+
+    }*/
+
     @Override
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b) {
         return DetailedBokningDto.builder().id(b.getId()).bokningsDatum(b.getBokningsDatum()).startDatum(b.getStartDatum())
@@ -83,6 +89,15 @@ public class BokningServiceImpl implements BokningService {
         }
         return availableRumByDate;
     }
+
+    /*@Override
+    public void deleteNullBokning(){
+        List<Bokning> nullBokningar = bokningRepo.getNullBokning();
+
+        for(Bokning bokning : nullBokningar){
+            bokningRepo.delete(bokning);
+        }
+    }*/
 
     @Override
     public void sparaBokning(DetailedBokningDto b){

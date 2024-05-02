@@ -17,8 +17,12 @@ public interface BokningService {
 
     BokningDto bokningToBokningDto(Bokning b);
 
+    //public void deleteNullBokning(Bokning b);
     public DetailedBokningDto bokningToDetailedBokningDto(Bokning b);
     public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate);
+
+    //void deleteNullBokning();
+
     public void sparaBokning(DetailedBokningDto b);
     void sparaBokningTillKund(DetailedBokningDto b);
 }
