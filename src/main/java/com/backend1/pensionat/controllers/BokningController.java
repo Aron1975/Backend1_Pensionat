@@ -4,6 +4,7 @@ package com.backend1.pensionat.controllers;
 import com.backend1.pensionat.dtos.BokningDto;
 import com.backend1.pensionat.dtos.DetailedBokningDto;
 import com.backend1.pensionat.dtos.DetailedKundDto;
+import com.backend1.pensionat.dtos.RumDto;
 import com.backend1.pensionat.models.Bokning;
 import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.models.Rum;
@@ -12,11 +13,11 @@ import com.backend1.pensionat.repos.KundRepo;
 import com.backend1.pensionat.repos.RumRepo;
 import com.backend1.pensionat.services.BokningService;
 import com.backend1.pensionat.services.KundService;
+import com.backend1.pensionat.services.RumService;
 import com.backend1.pensionat.services.impl.BokningServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,7 @@ public class BokningController {
     private final BokningRepo bokningRepo;
     private final BokningService bokningService;
     private final BokningServiceImpl bokningServiceImpl;
+    private final RumService rumService;
     private final KundService kundService;
     private final RumRepo rumRepo;
     private final KundRepo kundRepo;
@@ -76,22 +78,6 @@ public class BokningController {
         return "bokaKund";
     }
 
-    /*@ResponseBody
-    @RequestMapping("/confirmation")
-    public void bekraftaBokning(@PathVariable String id* Kund kund){
-
-        Long kundId = 1L;
-        Integer kund_id = 1;
-        //Long kundId = Long.parseLong(id);
-        List<DetailedBokningDto> responseList = bokningService.getAllBokningar();
-        DetailedBokningDto d = responseList.get(responseList.size() -1);
-        String bokningIdString = String.valueOf(d.getId());
-        Long bokningId = 3002L/*Long.parseLong(bokningIdString);
-
-
-        //return "Test" + bokningId + " " /*+ kundDto.getId();
-    }*/
-
     @RequestMapping("/{id}/add")
     public String sparaBokning(@PathVariable String id, @RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum) {
 
@@ -107,20 +93,40 @@ public class BokningController {
         return "redirect:/bokning/addkund";
     }
 
+    @RequestMapping("/redigera/{id}")
+    public String changeBokning(@PathVariable long id, Model model){
+        model.addAttribute("bokningsId", id);
+        return "redigera";
+    }
+
+    @RequestMapping("/bytaRum/{id}")
+    public String findRum(@PathVariable String id, @RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
+
+        if(startDate.isBlank() || startDate.isEmpty() || stopDate.isBlank() || stopDate.isEmpty()){
+            return "redirect:/rum/";
+        }
+        LocalDate chin = LocalDate.parse(startDate);
+        LocalDate chout = LocalDate.parse(stopDate);
+        if(chout.isBefore(chin)||chout.isEqual(chin)){
+            return "redirect:/rum/";
+        }
+        List<RumDto> availableRumByCapacity = rumService.getAvailableRum(guests);
+        LocalDate startDatum = LocalDate.parse(startDate);
+        LocalDate stopDatum = LocalDate.parse(stopDate);
+        List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
+        //model.addAttribute("bokningsId", bokningsId);
+        model.addAttribute("availableRumList", availableRumList);
+        model.addAttribute("startDatum", startDate);
+        model.addAttribute("stopDatum", stopDate);
+        model.addAttribute("antal", guests);
+        return "bytaRum";
+    }
+
     @RequestMapping("/delete/{id}")
     public String deleteBokningById(@PathVariable long id, Model model) {
         //Bokning bokningToDelete = bokningService.findBokningById(id);
         bokningRepo.deleteById(id);
 
-        return "redirect:/bokning/all";
-    }
-
-    @GetMapping("/redigera/{id}")
-    public String visaForm(@PathVariable("id") Integer id, Model model) {
-        //DetailedBokningDto bokning = bokningServiceImpl.getBokning(id);
-        model.addAttribute("kat", "Ändra bokning");
-        model.addAttribute("titel", "Bokning");
-        //model.addAttribute("bokning", bokning);
         return "redirect:/bokning/all";
     }
 }
