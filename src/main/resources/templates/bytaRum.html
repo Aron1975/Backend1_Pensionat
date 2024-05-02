@@ -58,8 +58,9 @@
         </div>
     </div>
 </nav>
-<h1>Sök Rum</h1>
+<h1>Lediga Rum</h1>
 <h2>Din sökning</h2>
+<p th:text="'Ändra bokning: #' + ${bokningsId}" />
 <p th:text="'Antal gäster: ' + ${antal}" />
 <p th:text="'Incheckning: ' + ${startDatum}" />
 <p th:text="'Utcheckning: ' + ${stopDatum}" />
@@ -79,7 +80,7 @@
         <td th:text="${rum.nummer}"></td>
         <td th:text="${rum.storlek} + ' kvm'"></td>
         <td th:text="${rum.pris} + ' kr/natt'"></td>
-        <td><a th:href="@{/bokning/{id}/add(id=${rum.id},antal=${antal}, startDatum=${startDatum}, stopDatum=${stopDatum})}" class="btn btn-primary btn-sm">Boka</a> </td>
+        <td><a th:href="@{/bokning/uppdatera/{id}/(id=${rum.id},antal=${antal}, startDatum=${startDatum}, stopDatum=${stopDatum}, bokningsId=${bokningsId})}" class="btn btn-primary btn-sm">Ändra</a> </td>
         <!-- <td><a th:href="@{/kund/{id}/delete(id=${kund.id})}" class="btn btn-danger btn-sm">Ta bort</a> </td>-->
     </tr>
     </tbody>

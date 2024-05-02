@@ -18,9 +18,7 @@ import com.backend1.pensionat.services.impl.BokningServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -93,6 +91,25 @@ public class BokningController {
         return "redirect:/bokning/addkund";
     }
 
+
+    @RequestMapping("/uppdatera/{id}/")
+    public String uppdateraBokning(@PathVariable String id,@RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum, @RequestParam long bokningsId){
+        LocalDate inch = LocalDate.parse(startDatum);
+        LocalDate utch = LocalDate.parse(stopDatum);
+        Long rumId = Long.parseLong(id);
+        Rum rum = rumRepo.findById(rumId).get();
+        Bokning bokning = bokningRepo.findById(bokningsId).get();
+        long antalDagar = DAYS.between(inch, utch);
+        bokning.setRum(rum);
+        bokning.setStartDatum(inch);
+        bokning.setSlutDatum(utch);
+        bokning.setAntalGäster(antal);
+        bokning.setAntalExtraSängar(antal-2);
+        bokning.setTotalPris(rum.getPris()*antalDagar);
+        bokningRepo.save(bokning);
+        return "redirect:/bokning/all";
+    }
+
     @RequestMapping("/redigera/{id}")
     public String changeBokning(@PathVariable long id, Model model){
         model.addAttribute("bokningsId", id);
@@ -100,7 +117,7 @@ public class BokningController {
     }
 
     @RequestMapping("/bytaRum/{id}")
-    public String findRum(@PathVariable String id, @RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
+    public String findRum(@PathVariable long id, @RequestParam int guests, @RequestParam String startDate, @RequestParam String stopDate, Model model) {
 
         if(startDate.isBlank() || startDate.isEmpty() || stopDate.isBlank() || stopDate.isEmpty()){
             return "redirect:/rum/";
@@ -114,7 +131,7 @@ public class BokningController {
         LocalDate startDatum = LocalDate.parse(startDate);
         LocalDate stopDatum = LocalDate.parse(stopDate);
         List<RumDto> availableRumList = bokningService.getAvailableRumByDate(availableRumByCapacity, startDatum, stopDatum);
-        //model.addAttribute("bokningsId", bokningsId);
+        model.addAttribute("bokningsId", id);
         model.addAttribute("availableRumList", availableRumList);
         model.addAttribute("startDatum", startDate);
         model.addAttribute("stopDatum", stopDate);
