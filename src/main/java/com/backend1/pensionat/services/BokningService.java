@@ -12,6 +12,7 @@ public interface BokningService {
 
     public List<DetailedBokningDto> getAllBokningar();
 
+    public void uppdateraBokningMedKund(String kundId);
     public void deleteBokningWithoutKundId();
     public List<BokningDto> getAllBokningar2();
 
@@ -22,8 +23,10 @@ public interface BokningService {
     public List<RumDto> getAvailableRumByDate(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate);
     public List<RumDto> getAvailableRumByDate2(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate, long id);
 
-    //void deleteNullBokning();
 
-    public void sparaBokning(DetailedBokningDto b);
+
+    void uppdateraBokning(String id, int antal, String startDatum, String stopDatum, long bokningsId);
+
+    void sparaBokning(String id, int antal, String startDatum, String stopDatum);
     void sparaBokningTillKund(DetailedBokningDto b);
 }

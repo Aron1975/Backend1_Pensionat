@@ -5,9 +5,13 @@ import com.backend1.pensionat.dtos.DetailedBokningDto;
 import com.backend1.pensionat.dtos.KundDto;
 import com.backend1.pensionat.dtos.RumDto;
 import com.backend1.pensionat.models.Bokning;
+import com.backend1.pensionat.models.Kund;
 import com.backend1.pensionat.models.Rum;
 import com.backend1.pensionat.repos.BokningRepo;
+import com.backend1.pensionat.repos.KundRepo;
+import com.backend1.pensionat.repos.RumRepo;
 import com.backend1.pensionat.services.BokningService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,16 +19,66 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
 @Service
 @RequiredArgsConstructor
 public class BokningServiceImpl implements BokningService {
 
     private final BokningRepo bokningRepo;
+    private final KundRepo kundRepo;
+    private final RumRepo rumRepo;
 
     @Override
     public List<DetailedBokningDto> getAllBokningar() {
         return bokningRepo.findAll().stream().map(b -> bokningToDetailedBokningDto(b)).toList();
     }
+
+    @Override
+    public void uppdateraBokningMedKund(String kundId) {
+        // Hämta den senaste bokningen från listan av bokningar
+        List<BokningDto> responseList = getAllBokningar2();
+        BokningDto senasteBokning = responseList.get(responseList.size() - 1);
+
+        // Hämta bokningens ID och kundens ID
+        Long bokningsId = senasteBokning.getId();
+        Long kundIdLong = Long.parseLong(kundId);
+
+        // Hämta bokningen från databasen
+        Bokning bokning = bokningRepo.findById(bokningsId).get();
+
+        // Hämta kunden från databasen
+        Kund kund = kundRepo.findById(kundIdLong).get();
+
+        // Uppdatera bokningen med kunden
+        bokning.setKund(kund);
+
+        // Spara den uppdaterade bokningen till databasen
+        bokningRepo.save(bokning);
+    }
+
+    @Override
+    public void uppdateraBokning(String id, int antal, String startDatum, String stopDatum, long bokningsId) {
+        LocalDate inch = LocalDate.parse(startDatum);
+        LocalDate utch = LocalDate.parse(stopDatum);
+        Long rumId = Long.parseLong(id);
+        Rum rum = rumRepo.findById(rumId).get();
+
+        Bokning bokning = bokningRepo.findById(bokningsId).get();
+
+        long antalDagar = DAYS.between(inch, utch);
+        int antalExtraSängar = (antal == 1) ? 0 : antal - 2;
+
+        bokning.setRum(rum);
+        bokning.setStartDatum(inch);
+        bokning.setSlutDatum(utch);
+        bokning.setAntalGäster(antal);
+        bokning.setAntalExtraSängar(antalExtraSängar);
+        bokning.setTotalPris(rum.getPris()*antalDagar);
+
+        bokningRepo.save(bokning);
+    }
+
 
     @Override
     public void deleteBokningWithoutKundId() {
@@ -35,6 +89,7 @@ public class BokningServiceImpl implements BokningService {
             }
         }
     }
+
 
     @Override
     public List<BokningDto> getAllBokningar2() {
@@ -117,10 +172,26 @@ public class BokningServiceImpl implements BokningService {
     }
 
     @Override
-    public void sparaBokning(DetailedBokningDto b){
-        //Bokning bokning = detailedBokningDtoToBokning(b);
-       // bokningRepo.save(bokning);
+    public void sparaBokning(String id, int antal, String startDatum, String stopDatum) {
+        Long rumId = Long.parseLong(id);
+        Rum rum = rumRepo.findById(rumId).get();
 
+        LocalDate inch = LocalDate.parse(startDatum);
+        LocalDate utch = LocalDate.parse(stopDatum);
+        long antalDagar = DAYS.between(inch, utch);
+        int antalExtraSängar = (antal == 1) ? 0 : antal - 2;
+
+        Bokning bokning = Bokning.builder()
+                .bokningsDatum(LocalDate.now())
+                .startDatum(inch)
+                .slutDatum(utch)
+                .antalGäster(antal)
+                .antalExtraSängar(antalExtraSängar)
+                .totalPris(rum.getPris() * antalDagar)
+                .rum(rum)
+                .build();
+
+        bokningRepo.save(bokning);
     }
 
     @Override

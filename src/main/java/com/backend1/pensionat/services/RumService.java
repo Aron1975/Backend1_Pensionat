@@ -13,4 +13,6 @@ public interface RumService {
     public RumDto rumToRumDto(Rum r);
 
     public List<RumDto> getAvailableRum(int antal);
+
+    
 }

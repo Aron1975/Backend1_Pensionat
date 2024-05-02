@@ -50,17 +50,10 @@ public class BokningController {
     }
     @RequestMapping("/addkund/{id}")
     public String uppdateraBokning(@PathVariable String id){
-        List<BokningDto> responseList = bokningService.getAllBokningar2();
-        BokningDto d = responseList.get(responseList.size() -1);
-        String bokningIdString = String.valueOf(d.getId());
-        Long bokningsId = Long.parseLong(bokningIdString);
-        Long kundId = Long.parseLong(id);
-        Bokning bokning = bokningRepo.findById(bokningsId).get();
-        Kund kund = kundRepo.findById(kundId).get();
-        bokning.setKund(kund);
-        bokningRepo.save(bokning);
+        bokningService.uppdateraBokningMedKund(id);
         return "redirect:/bokning/all";
     }
+
     @RequestMapping("/addkund")
     public String sparaBokningTillKund(Model model){
         List<DetailedKundDto> responseList = kundService.getAllKunder();
@@ -72,43 +65,14 @@ public class BokningController {
 
     @RequestMapping("/{id}/add")
     public String sparaBokning(@PathVariable String id, @RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum) {
-
-        Long rumId = Long.parseLong(id);
-        Rum rum = rumRepo.findById(rumId).get();
-
-        LocalDate inch = LocalDate.parse(startDatum);
-        LocalDate utch = LocalDate.parse(stopDatum);
-        long antalDagar = DAYS.between(inch, utch);
-        int antalExtraSängar = 1;
-        if (antal == 1) {
-            antalExtraSängar = 0;
-        } else antalExtraSängar = antal - 2;
-        bokningRepo.save(Bokning.builder().bokningsDatum(LocalDate.now()).startDatum(inch).slutDatum(utch).antalGäster(antal).antalExtraSängar(antalExtraSängar).totalPris(rum.getPris()*antalDagar).rum(rum).build());
-
-        //bokningService.spara(bokning);
+        bokningService.sparaBokning(id, antal, startDatum, stopDatum);
         return "redirect:/bokning/addkund";
     }
 
 
     @RequestMapping("/uppdatera/{id}/")
-    public String uppdateraBokning(@PathVariable String id,@RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum, @RequestParam long bokningsId){
-        LocalDate inch = LocalDate.parse(startDatum);
-        LocalDate utch = LocalDate.parse(stopDatum);
-        Long rumId = Long.parseLong(id);
-        Rum rum = rumRepo.findById(rumId).get();
-        Bokning bokning = bokningRepo.findById(bokningsId).get();
-        long antalDagar = DAYS.between(inch, utch);
-        int antalExtraSängar = 1;
-        if (antal == 1) {
-            antalExtraSängar = 0;
-        } else antalExtraSängar = antal - 2;
-        bokning.setRum(rum);
-        bokning.setStartDatum(inch);
-        bokning.setSlutDatum(utch);
-        bokning.setAntalGäster(antal);
-        bokning.setAntalExtraSängar(antalExtraSängar);
-        bokning.setTotalPris(rum.getPris()*antalDagar);
-        bokningRepo.save(bokning);
+    public String uppdateraBokning(@PathVariable String id,@RequestParam int antal, @RequestParam String startDatum, @RequestParam String stopDatum, @RequestParam long bokningsId) {
+        bokningService.uppdateraBokning(id, antal, startDatum, stopDatum, bokningsId);
         return "redirect:/bokning/all";
     }
 
