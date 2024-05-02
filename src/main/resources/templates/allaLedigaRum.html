@@ -84,8 +84,11 @@
     </tbody>
 
 </table>
-<div>
-    <img th:src="@{resources/static/images/moose.jpg}" alt="cat">
+<div id="moose" searchImg>
+    <!--img id="pic"  th:src="@{/images/moose.jpg}" alt="moose"/-->
+    <img id="pic" th:if="${has_logo}" th:src="@{/images/moose.jpg}" alt=""/>
+</div>
+<div id="moose2">
     <p id="noAvRumMsg" th:text="${noAvRumMessage}" />
 </div>
 </body>
