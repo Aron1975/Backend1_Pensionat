@@ -132,9 +132,6 @@ public class BokningServiceImpl implements BokningService {
     public List<RumDto> getAvailableRumByDate2(List<RumDto> availableRumByCapacity, LocalDate startDate, LocalDate stopDate, long id) {
         List<RumDto> availableRumByDate = new ArrayList<>();
         List<DetailedBokningDto> allaBokningar = getAllBokningar();
-        System.out.println("BokningId: " + id);
-        long rumsId = allaBokningar.stream().filter(m->m.getId()==id).findAny().get().getRum().getId();
-        System.out.println("rumAct Id: " + rumsId);
         boolean isBooked = false;
         if (getAllBokningar2().isEmpty()) {
             availableRumByDate = availableRumByCapacity;
@@ -143,10 +140,9 @@ public class BokningServiceImpl implements BokningService {
             for (RumDto r : availableRumByCapacity) {
                 for (DetailedBokningDto b : allaBokningar) {
                     if (r.getId() == b.getRum().getId()) {
-                        if(b.getRum().getId()!= rumsId){
-                            System.out.println("r.getId " + r.getId() + "currentRum: " + rumsId);
-                            if ((startDate.isBefore(b.getSlutDatum()) && stopDate.isAfter(b.getStartDatum()))) {
-                                isBooked = true;
+                        if ((startDate.isBefore(b.getSlutDatum()) && stopDate.isAfter(b.getStartDatum()))) {
+                            if(b.getId() != id){
+                                    isBooked = true;
                             }
                         }
                     }

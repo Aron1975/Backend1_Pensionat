@@ -42,7 +42,8 @@ public Rum(int nummer, int storlek, String typ, int kapacitet, double pris) {
     @Test
     void testRumtoRumDto() {
 
-        Rum rum = new Rum(3, 20, "Dubbelrum", 3, 500);
+       // Rum rum = new Rum(3, 20, "Dubbelrum", 3, 500);
+        Rum rum = Rum.builder().nummer(1).storlek(10).typ("Enkelrum").kapacitet(1).pris(500).build();
         rum.setId(2);
 
         RumDto rumDto = rumService.rumToRumDto(rum);

@@ -46,8 +46,9 @@ public class KundServiceImplTest {
 
     @Test
     void testKundToDetailedKundDto() {
-        Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
-                "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+       // Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
+          //      "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+        Kund kund = Kund.builder().stad("Huddinge").adress("Stockholmsvägen 23").email("karlsson@hotmail.com").mobilnummer("0762272212").efternamn("Karlsson").förnamn("Karl").ssn("1234567890").build();
         kund.setId(1L);
 
         DetailedKundDto detailedKundDto = kundService.kundToDetailedKundDto(kund);
@@ -111,8 +112,10 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
     @Test  //testar få ut kunder
     void testgetAllKunder() {
 
-        Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
-                "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+     //   Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
+       //         "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+        Kund kund = Kund.builder().stad("Huddinge").adress("Stockholmsvägen 23").email("karlsson@hotmail.com").mobilnummer("0762272212").efternamn("Karlsson").förnamn("Karl").ssn("1234567890").build();
+
         kund.setId(1L);
 
         when(kundRepo.findAll()).thenReturn(Arrays.asList(kund));   //när kundrepo utför findall, ska vi få vår kund
@@ -143,8 +146,10 @@ public Kund detailedKundDtoToKund(DetailedKundDto dto) {
                 .efternamn("karlsson").adress("Vegavägen 23").stad("somewhere").mobilnummer("1235-3234")
                 .email("john@hotmail.com").build();
 
-        Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
-                "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+  //      Kund kund = new Kund("Huddinge", "Stockholmsvägen 23",
+    //            "karlsson@hotmail.com", "0762272212", "Karlsson", "Karl", "12345");
+        Kund kund = Kund.builder().stad("Huddinge").adress("Stockholmsvägen 23").email("karlsson@hotmail.com").mobilnummer("0762272212").efternamn("Karlsson").förnamn("Karl").ssn("1234567890").build();
+
 
         kundService = new KundServiceImpl(kundRepo, bokningRepo); //måste skapa upp igen annars fel..
         when(kundRepo.save(kund)).thenReturn(kund);
